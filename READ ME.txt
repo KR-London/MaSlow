@@ -1,0 +1,5 @@
+SpriteKit2 is a playground tutorial I downloaded from the Internet that shows some nice effects possible with Sprite Kit. 
+
+I have found Playgrounds a bit unstable - so restart if it doesn't work. See the attached full project also, 
+
+ Remember to show the assistant editor (Command-Alt-Enter) in Playgrounds - so you can see the effect
