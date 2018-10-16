@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		441714B62174BF6C003E0D1D /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 441714B52174BF6C003E0D1D /* Launch Screen.storyboard */; };
 		44CBA92421745E1D00B9C808 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44CBA92321745E1D00B9C808 /* AppDelegate.swift */; };
 		44CBA92621745E1D00B9C808 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44CBA92521745E1D00B9C808 /* ViewController.swift */; };
 		44CBA92921745E1D00B9C808 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 44CBA92721745E1D00B9C808 /* Main.storyboard */; };
@@ -27,6 +28,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		441714B52174BF6C003E0D1D /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		44CBA92021745E1D00B9C808 /* MaSlow.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MaSlow.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		44CBA92321745E1D00B9C808 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		44CBA92521745E1D00B9C808 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -82,6 +84,7 @@
 				44CBA92321745E1D00B9C808 /* AppDelegate.swift */,
 				44CBA92521745E1D00B9C808 /* ViewController.swift */,
 				44CBA92721745E1D00B9C808 /* Main.storyboard */,
+				441714B52174BF6C003E0D1D /* Launch Screen.storyboard */,
 				44CBA92D21745E1D00B9C808 /* Assets.xcassets */,
 				44CBA92F21745E1D00B9C808 /* LaunchScreen.storyboard */,
 				44CBA93221745E1D00B9C808 /* Info.plist */,
@@ -184,6 +187,7 @@
 			files = (
 				44CBA93121745E1D00B9C808 /* LaunchScreen.storyboard in Resources */,
 				44CBA92E21745E1D00B9C808 /* Assets.xcassets in Resources */,
+				441714B62174BF6C003E0D1D /* Launch Screen.storyboard in Resources */,
 				44CBA92921745E1D00B9C808 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -358,6 +362,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 3JJ9D977P6;
 				INFOPLIST_FILE = MaSlow/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.example.MaSlow;
@@ -372,6 +377,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 3JJ9D977P6;
 				INFOPLIST_FILE = MaSlow/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.example.MaSlow;
