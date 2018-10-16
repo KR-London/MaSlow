@@ -9,6 +9,7 @@
 import UIKit
 import CoreData
 
+
 class ViewController: UIViewController {
     
     //MARK: Define my variables to work with the database
@@ -18,10 +19,9 @@ class ViewController: UIViewController {
     let datafilepath = FileManager.default.urls(for: .documentDirectory,
                                                 in: .userDomainMask).first?.appendingPathComponent("Items.plist")
 
-    //MARK: My local variables for my code
+    //MARK: My local data variables for my code
     var todayLog: Today!
-    
-    
+ 
     /// outlets to scroll view and the dirt/sky background
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var backgroundImage: UIImageView!
@@ -57,10 +57,14 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+   //     intialiseEmptyDayLog()
         loadItems()
         makeSureCurrentDayLog()
-        
+//        print(todayLog.date!)
+//        print(todayLog.date?.timeIntervalSince(Date.init(timeIntervalSinceNow: 0)))
+//        print(todayLog.date!.description)
+//        let timestamp = todayLog.date!.description.split(separator: " ")[0]
+//
         /// my tutorial told me this would look better...
         scrollView.contentInsetAdjustmentBehavior = .never
         
@@ -260,9 +264,7 @@ class ViewController: UIViewController {
         buttonLeftTier4.titleLabel?.font = UIFont(name: "Verdana", size: 15)
        
         buttonAppearance(button: buttonLeftTier4, state: todayLog.buttonLeftTier4)
-        
 
-        
         buttonLeftTier4.addTarget(self, action: #selector(buttonInAction), for: UIControlEvents.touchUpInside)
         self.view.addSubview(buttonLeftTier4)
     }
@@ -274,10 +276,7 @@ class ViewController: UIViewController {
         buttonMidTier4.center = CGPoint(x: view.bounds.width / 2, y: view.bounds.height * 1.177 - 3.5)
         buttonMidTier4.setTitle("click me!", for: UIControlState.normal)
         buttonMidTier4.titleLabel?.font = UIFont(name: "Verdana", size: 15)
-       
         buttonAppearance(button: buttonMidTier4, state: todayLog.buttonMidTier4)
-        
-        
         buttonMidTier4.addTarget(self, action: #selector(buttonInAction), for: UIControlEvents.touchUpInside)
         self.view.addSubview(buttonMidTier4)
     }
@@ -289,10 +288,7 @@ class ViewController: UIViewController {
         buttonRightTier4.center = CGPoint(x: view.bounds.width - (view.bounds.width / 6), y: view.bounds.height * 1.177 - 3.5)
         buttonRightTier4.setTitle("click me!", for: UIControlState.normal)
         buttonRightTier4.titleLabel?.font = UIFont(name: "Verdana", size: 15)
-        
         buttonAppearance(button: buttonRightTier4, state: todayLog.buttonRightTier4)
-        
-        
         buttonRightTier4.addTarget(self, action: #selector(buttonInAction), for: UIControlEvents.touchUpInside)
         self.view.addSubview(buttonRightTier4)
     }
@@ -304,10 +300,7 @@ class ViewController: UIViewController {
         buttonOutterLeftTier5.center = CGPoint(x: view.bounds.width / 7, y: view.bounds.height * 1.0625 - 3.5)
         buttonOutterLeftTier5.setTitle("click me!", for: UIControlState.normal)
         buttonOutterLeftTier5.titleLabel?.font = UIFont(name: "Verdana", size: 15)
-        
         buttonAppearance(button: buttonOutterLeftTier5, state: todayLog.buttonOutterLeftTier5)
-        
-        
         buttonOutterLeftTier5.addTarget(self, action: #selector(buttonInAction), for: UIControlEvents.touchUpInside)
         self.view.addSubview(buttonOutterLeftTier5)
     }
@@ -319,10 +312,7 @@ class ViewController: UIViewController {
         buttonInnerLeftTier5.center = CGPoint(x: ((view.bounds.width / 4.25) / 2) + (view.bounds.width / 2), y: view.bounds.height * 1.0625 - 3.5)
         buttonInnerLeftTier5.setTitle("click me!", for: UIControlState.normal)
         buttonInnerLeftTier5.titleLabel?.font = UIFont(name: "Verdana", size: 15)
-       
         buttonAppearance(button: buttonInnerLeftTier5, state: todayLog.buttonInnerLeftTier5)
-        
-        
         buttonInnerLeftTier5.addTarget(self, action: #selector(buttonInAction), for: UIControlEvents.touchUpInside)
         self.view.addSubview(buttonInnerLeftTier5)
     }
@@ -334,10 +324,7 @@ class ViewController: UIViewController {
         buttonInnerRightTier5.center = CGPoint(x:(view.bounds.width / 2) - ((view.bounds.width / 4.25) / 2), y: view.bounds.height * 1.0625 - 3.5)
         buttonInnerRightTier5.setTitle("click me!", for: UIControlState.normal)
         buttonInnerRightTier5.titleLabel?.font = UIFont(name: "Verdana", size: 15)
-        
         buttonAppearance(button: buttonInnerRightTier5, state: todayLog.buttonInnerRightTier5)
-        
-      
         buttonInnerRightTier5.addTarget(self, action: #selector(buttonInAction), for: UIControlEvents.touchUpInside)
         self.view.addSubview(buttonInnerRightTier5)
     }
@@ -399,14 +386,14 @@ class ViewController: UIViewController {
         case 15:todayLog.buttonOutterLeftTier5 = !todayLog.buttonOutterLeftTier5
         state = todayLog.buttonOutterLeftTier5
         case 16:todayLog.buttonInnerLeftTier5 = !todayLog.buttonInnerLeftTier5
-        state = todayLog.buttonTier1
+        state = todayLog.buttonInnerLeftTier5
         case 17: todayLog.buttonInnerRightTier5 = !todayLog.buttonInnerRightTier5
         state = todayLog.buttonInnerRightTier5
         case 18:  todayLog.buttonOutterRightTier5 = !todayLog.buttonOutterRightTier5
         state = todayLog.buttonOutterRightTier5
         default:print("none of the above")
     }
-    
+
     // refresh the appearance of the button
     buttonAppearance(button: sender, state: state)
     self.view.setNeedsDisplay()
@@ -431,11 +418,30 @@ class ViewController: UIViewController {
     
     func makeSureCurrentDayLog(){
         
-        //MARK: To do - add condition if date stamp is not the same as today
-        let temp = dayLogArray[0]
+        // defined a helper variable to tell me if I should throw away current tasks log
+        var deleteIndicator = false
         
         // If the data is empty or corrupted, i want to start afresh.
         if dayLogArray == nil || dayLogArray.count > 1
+        {
+           deleteIndicator = true
+        }
+        else /// put this in an else loop, so I don;t by mistake try to unwrap a nil object
+        {
+            //If this data is not from today, i want to start afresh
+            let temp = dayLogArray[0]
+            let timestamp_of_now = Date.init(timeIntervalSinceNow: 0).description.split(separator: " ")[0]
+            let timestamp_of_data = temp.date!.description.split(separator: " ")[0]
+            
+            if String(describing: timestamp_of_now) != String(describing: timestamp_of_data)
+            {
+                deleteIndicator = true
+                print("The stored data is out of date")
+            }
+        }
+        
+        // If the data is empty or corrupted, i want to start afresh.
+        if deleteIndicator == true
         {
             //Create Fetch Request
             let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Today")
@@ -450,16 +456,17 @@ class ViewController: UIViewController {
                 print("Batch delete error \(error)")
             }
             
-           todayLog.buttonTier1 = false
-           todayLog.message = "I've updated from batch delete loop"
-           saveItems()
+//           todayLog = Today!
+//           todayLog.buttonTier1 = false
+//           todayLog.message = "I've updated from batch delete loop"
+//            todayLog.date = Date.init(timeIntervalSinceNow: 0)
+            saveItems()
+            intialiseEmptyDayLog()
         }
-        
-        todayLog = temp
-        saveItems()
-        todayLog.message = "I've updated from reset"
-        print(todayLog)
-
+        else
+        {
+           todayLog = dayLogArray[0]
+        }
     }
     
     
@@ -471,6 +478,32 @@ class ViewController: UIViewController {
             fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
             
         }
+    }
+    
+    /// this is the subroutine to reset the achievements
+    func intialiseEmptyDayLog(){
+        todayLog = Today(context:context)
+        todayLog.buttonTier1 = false
+        todayLog.buttonLeftTier2 = false
+        todayLog.buttonMidTier2 = false
+        todayLog.buttonRightTier2 = false
+        todayLog.buttonSecondLeftTier2 = false
+        todayLog.buttonSecondMidTier2 = false
+        todayLog.buttonSecondRightTier2 = false
+        todayLog.buttonLeftTier3 = false
+        todayLog.buttonRightTier3 = false
+        todayLog.buttonSecondLeftTier3 = false
+        todayLog.buttonSecondRightTier3 = false
+        todayLog.buttonLeftTier4 = false
+        todayLog.buttonMidTier4 = false
+        todayLog.buttonRightTier4 = false
+        todayLog.buttonOutterLeftTier5 = false
+        todayLog.buttonInnerLeftTier5 = false
+        todayLog.buttonInnerRightTier5 = false
+        todayLog.buttonOutterRightTier5 = false
+        todayLog.message = "I've initialised a new day log"
+        todayLog.date = Date.init(timeIntervalSinceNow: 0)
+        saveItems()
     }
     
     override func didReceiveMemoryWarning() {
