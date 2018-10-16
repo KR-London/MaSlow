@@ -21,6 +21,7 @@ class ViewController: UIViewController {
 
     //MARK: My local data variables for my code
     var todayLog: Today!
+    let task = Tasks()
  
     /// outlets to scroll view and the dirt/sky background
     @IBOutlet weak var scrollView: UIScrollView!
@@ -58,13 +59,7 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
    //     intialiseEmptyDayLog()
-        loadItems()
-        makeSureCurrentDayLog()
-//        print(todayLog.date!)
-//        print(todayLog.date?.timeIntervalSince(Date.init(timeIntervalSinceNow: 0)))
-//        print(todayLog.date!.description)
-//        let timestamp = todayLog.date!.description.split(separator: " ")[0]
-//
+
         /// my tutorial told me this would look better...
         scrollView.contentInsetAdjustmentBehavior = .never
         
@@ -76,6 +71,10 @@ class ViewController: UIViewController {
         scrollView.contentSize = (backgroundImage?.frame.size)!
         
         scrollView.setContentOffset(CGPoint(x:0, y:screenSize.height), animated: true)
+        
+        // I was a bit worried about app being slow laoding. moved these calls lower down to avoid impression of 'hang'
+        loadItems()
+        makeSureCurrentDayLog()
         
         // Add Buttons to view
         addButtonTier1()
@@ -103,13 +102,13 @@ class ViewController: UIViewController {
         buttonTier1.tag = 1
         buttonTier1.frame = CGRect(x: 0, y: 0, width: self.view.frame.width / 2, height: self.view.frame.height / 12)
         buttonTier1.center = CGPoint(x: view.bounds.width / 2, y: view.bounds.height * 1.75 - 3.5)
-        buttonTier1.setTitle("click me!", for: UIControlState.normal)
-        buttonTier1.titleLabel?.font = UIFont(name: "Verdana", size: 15)
+        
+        buttonTier1.setTitle( task.taskTier1, for: UIControlState.normal)
+
         
         /// I've moved appearance code into separate func so we can bulk update the appearance
         buttonAppearance(button: buttonTier1, state: todayLog.buttonTier1)
-        
-        buttonTier1.addTarget(self, action: #selector(buttonInAction), for: UIControlEvents.touchUpInside)
+                buttonTier1.addTarget(self, action: #selector(buttonInAction), for: UIControlEvents.touchUpInside)
         
         self.view.addSubview(buttonTier1)
     }
@@ -119,9 +118,8 @@ class ViewController: UIViewController {
         buttonLeftTier2.tag = 2
         buttonLeftTier2.frame = CGRect(x: 0, y: 0, width: self.view.frame.width / 3.5, height: self.view.frame.height / 12)
         buttonLeftTier2.center = CGPoint(x: view.bounds.width / 6, y: view.bounds.height * 1.6353 - 3.5)
-        buttonLeftTier2.setTitle("click me!", for: UIControlState.normal)
-        buttonLeftTier2.titleLabel?.font = UIFont(name: "Verdana", size: 15)
-        
+        buttonLeftTier2.setTitle(task.taskLeftTier2, for: UIControlState.normal)
+     
         buttonAppearance(button: buttonLeftTier2, state: todayLog.buttonLeftTier2)
 
         buttonLeftTier2.addTarget(self, action: #selector(buttonInAction), for: UIControlEvents.touchUpInside)
@@ -133,8 +131,7 @@ class ViewController: UIViewController {
         buttonMidTier2.tag = 3
         buttonMidTier2.frame = CGRect(x: 0, y: 0, width: self.view.frame.width / 3.5, height: self.view.frame.height / 12)
         buttonMidTier2.center = CGPoint(x: view.bounds.width / 2, y: view.bounds.height * 1.6353 - 3.5)
-        buttonMidTier2.setTitle("click me!", for: UIControlState.normal)
-        buttonMidTier2.titleLabel?.font = UIFont(name: "Verdana", size: 15)
+        buttonMidTier2.setTitle(task.taskMidTier2, for: UIControlState.normal)
         
         buttonAppearance(button: buttonMidTier2, state: todayLog.buttonMidTier2)
         
@@ -147,8 +144,7 @@ class ViewController: UIViewController {
         buttonRightTier2.tag = 4
         buttonRightTier2.frame = CGRect(x: 0, y: 0, width: self.view.frame.width / 3.5, height: self.view.frame.height / 12)
         buttonRightTier2.center = CGPoint(x: view.bounds.width - (view.bounds.width / 6), y: view.bounds.height * 1.6353 - 3.5)
-        buttonRightTier2.setTitle("click me!", for: UIControlState.normal)
-        buttonRightTier2.titleLabel?.font = UIFont(name: "Verdana", size: 15)
+        buttonRightTier2.setTitle(task.taskRightTier2, for: UIControlState.normal)
         
         buttonAppearance(button: buttonRightTier2, state: todayLog.buttonRightTier2)
         
@@ -161,8 +157,7 @@ class ViewController: UIViewController {
         buttonSecondLeftTier2.tag = 5
         buttonSecondLeftTier2.frame = CGRect(x: 0, y: 0, width: self.view.frame.width / 3.5, height: self.view.frame.height / 12)
         buttonSecondLeftTier2.center = CGPoint(x: view.bounds.width / 6, y: view.bounds.height * 1.52 - 3.5)
-        buttonSecondLeftTier2.setTitle("click me!", for: UIControlState.normal)
-        buttonSecondLeftTier2.titleLabel?.font = UIFont(name: "Verdana", size: 15)
+        buttonSecondLeftTier2.setTitle(task.taskSecondLeftTier2, for: UIControlState.normal)
        
         buttonAppearance(button: buttonSecondLeftTier2, state: todayLog.buttonSecondLeftTier2)
         
@@ -175,8 +170,7 @@ class ViewController: UIViewController {
         buttonSecondMidTier2.tag = 6
         buttonSecondMidTier2.frame = CGRect(x: 0, y: 0, width: self.view.frame.width / 3.5, height: self.view.frame.height / 12)
         buttonSecondMidTier2.center = CGPoint(x: view.bounds.width / 2, y: view.bounds.height * 1.52 - 3.5)
-        buttonSecondMidTier2.setTitle("click me!", for: UIControlState.normal)
-        buttonSecondMidTier2.titleLabel?.font = UIFont(name: "Verdana", size: 15)
+        buttonSecondMidTier2.setTitle(task.taskSecondMidTier2, for: UIControlState.normal)
         
         buttonAppearance(button: buttonSecondMidTier2, state: todayLog.buttonSecondMidTier2)
         
@@ -189,8 +183,8 @@ class ViewController: UIViewController {
         buttonSecondRightTier2.tag = 7
         buttonSecondRightTier2.frame = CGRect(x: 0, y: 0, width: self.view.frame.width / 3.5, height: self.view.frame.height / 12)
         buttonSecondRightTier2.center = CGPoint(x: view.bounds.width - (view.bounds.width / 6), y: view.bounds.height * 1.52 - 3.5)
-        buttonSecondRightTier2.setTitle("click me!", for: UIControlState.normal)
-        buttonSecondRightTier2.titleLabel?.font = UIFont(name: "Verdana", size: 15)
+        buttonSecondRightTier2.setTitle(task.taskSecondRightTier2, for: UIControlState.normal)
+     
        
         buttonAppearance(button: buttonSecondRightTier2, state: todayLog.buttonSecondRightTier2)
         
@@ -203,9 +197,8 @@ class ViewController: UIViewController {
         buttonLeftTier3.tag = 8
         buttonLeftTier3.frame = CGRect(x: 0, y: 0, width: self.view.frame.width / 2.5, height: self.view.frame.height / 12)
         buttonLeftTier3.center = CGPoint(x: view.bounds.width / 3.75, y: view.bounds.height * 1.406 - 3.5)
-        buttonLeftTier3.setTitle("click me!", for: UIControlState.normal)
-        buttonLeftTier3.titleLabel?.font = UIFont(name: "Verdana", size: 15)
-        
+        buttonLeftTier3.setTitle(task.taskLeftTier3, for: UIControlState.normal)
+       
         buttonAppearance(button: buttonLeftTier3, state: todayLog.buttonLeftTier3)
         
         buttonLeftTier3.addTarget(self, action: #selector(buttonInAction), for: UIControlEvents.touchUpInside)
@@ -217,9 +210,8 @@ class ViewController: UIViewController {
         buttonRightTier3.tag = 9
         buttonRightTier3.frame = CGRect(x: 0, y: 0, width: self.view.frame.width / 2.5, height: self.view.frame.height / 12)
         buttonRightTier3.center = CGPoint(x: view.bounds.width - (view.bounds.width / 3.75), y: view.bounds.height * 1.406 - 3.5)
-        buttonRightTier3.setTitle("click me!", for: UIControlState.normal)
-        buttonRightTier3.titleLabel?.font = UIFont(name: "Verdana", size: 15)
-        
+        buttonRightTier3.setTitle(task.taskRightTier3, for: UIControlState.normal)
+      
         buttonAppearance(button: buttonRightTier3, state: todayLog.buttonRightTier3)
         
         buttonRightTier3.addTarget(self, action: #selector(buttonInAction), for: UIControlEvents.touchUpInside)
@@ -231,9 +223,8 @@ class ViewController: UIViewController {
         buttonSecondLeftTier3.tag = 10
         buttonSecondLeftTier3.frame = CGRect(x: 0, y: 0, width: self.view.frame.width / 2.5, height: self.view.frame.height / 12)
         buttonSecondLeftTier3.center = CGPoint(x: view.bounds.width / 3.75, y: view.bounds.height * 1.291 - 3.5)
-        buttonSecondLeftTier3.setTitle("click me!", for: UIControlState.normal)
-        buttonSecondLeftTier3.titleLabel?.font = UIFont(name: "Verdana", size: 15)
-        
+        buttonSecondLeftTier3.setTitle(task.taskSecondLeftTier3, for: UIControlState.normal)
+       
         buttonAppearance(button: buttonSecondLeftTier3, state: todayLog.buttonSecondLeftTier3)
         
         buttonSecondLeftTier3.addTarget(self, action: #selector(buttonInAction), for: UIControlEvents.touchUpInside)
@@ -245,9 +236,8 @@ class ViewController: UIViewController {
         buttonSecondRightTier3.tag = 11
         buttonSecondRightTier3.frame = CGRect(x: 0, y: 0, width: self.view.frame.width / 2.5, height: self.view.frame.height / 12)
         buttonSecondRightTier3.center = CGPoint(x: view.bounds.width - (view.bounds.width / 3.75), y: view.bounds.height * 1.291 - 3.5)
-        buttonSecondRightTier3.setTitle("click me!", for: UIControlState.normal)
-        buttonSecondRightTier3.titleLabel?.font = UIFont(name: "Verdana", size: 15)
-        
+        buttonSecondRightTier3.setTitle(task.taskSecondRightTier3, for: UIControlState.normal)
+      
         buttonAppearance(button: buttonSecondRightTier3, state: todayLog.buttonSecondRightTier3)
     
         
@@ -260,8 +250,7 @@ class ViewController: UIViewController {
         buttonLeftTier4.tag = 12
         buttonLeftTier4.frame = CGRect(x: 0, y: 0, width: self.view.frame.width / 3.5, height: self.view.frame.height / 12)
         buttonLeftTier4.center = CGPoint(x: view.bounds.width / 6, y: view.bounds.height * 1.177 - 3.5)
-        buttonLeftTier4.setTitle("click me!", for: UIControlState.normal)
-        buttonLeftTier4.titleLabel?.font = UIFont(name: "Verdana", size: 15)
+        buttonLeftTier4.setTitle(task.taskLeftTier4, for: UIControlState.normal)
        
         buttonAppearance(button: buttonLeftTier4, state: todayLog.buttonLeftTier4)
 
@@ -274,8 +263,8 @@ class ViewController: UIViewController {
         buttonMidTier4.tag = 13
         buttonMidTier4.frame = CGRect(x: 0, y: 0, width: self.view.frame.width / 3.5, height: self.view.frame.height / 12)
         buttonMidTier4.center = CGPoint(x: view.bounds.width / 2, y: view.bounds.height * 1.177 - 3.5)
-        buttonMidTier4.setTitle("click me!", for: UIControlState.normal)
-        buttonMidTier4.titleLabel?.font = UIFont(name: "Verdana", size: 15)
+        buttonMidTier4.setTitle(task.taskMidTier4, for: UIControlState.normal)
+        
         buttonAppearance(button: buttonMidTier4, state: todayLog.buttonMidTier4)
         buttonMidTier4.addTarget(self, action: #selector(buttonInAction), for: UIControlEvents.touchUpInside)
         self.view.addSubview(buttonMidTier4)
@@ -286,8 +275,8 @@ class ViewController: UIViewController {
         buttonRightTier4.tag = 14
         buttonRightTier4.frame = CGRect(x: 0, y: 0, width: self.view.frame.width / 3.5, height: self.view.frame.height / 12)
         buttonRightTier4.center = CGPoint(x: view.bounds.width - (view.bounds.width / 6), y: view.bounds.height * 1.177 - 3.5)
-        buttonRightTier4.setTitle("click me!", for: UIControlState.normal)
-        buttonRightTier4.titleLabel?.font = UIFont(name: "Verdana", size: 15)
+        buttonRightTier4.setTitle(task.taskRightTier4, for: UIControlState.normal)
+        
         buttonAppearance(button: buttonRightTier4, state: todayLog.buttonRightTier4)
         buttonRightTier4.addTarget(self, action: #selector(buttonInAction), for: UIControlEvents.touchUpInside)
         self.view.addSubview(buttonRightTier4)
@@ -298,8 +287,8 @@ class ViewController: UIViewController {
         buttonOutterLeftTier5.tag = 15
         buttonOutterLeftTier5.frame = CGRect(x: 0, y: 0, width: self.view.frame.width / 4.5, height: self.view.frame.height / 12)
         buttonOutterLeftTier5.center = CGPoint(x: view.bounds.width / 7, y: view.bounds.height * 1.0625 - 3.5)
-        buttonOutterLeftTier5.setTitle("click me!", for: UIControlState.normal)
-        buttonOutterLeftTier5.titleLabel?.font = UIFont(name: "Verdana", size: 15)
+        buttonOutterLeftTier5.setTitle(task.taskOutterLeftTier5, for: UIControlState.normal)
+        
         buttonAppearance(button: buttonOutterLeftTier5, state: todayLog.buttonOutterLeftTier5)
         buttonOutterLeftTier5.addTarget(self, action: #selector(buttonInAction), for: UIControlEvents.touchUpInside)
         self.view.addSubview(buttonOutterLeftTier5)
@@ -310,8 +299,8 @@ class ViewController: UIViewController {
         buttonInnerLeftTier5.tag = 16
         buttonInnerLeftTier5.frame = CGRect(x: 0, y: 0, width: self.view.frame.width / 4.5, height: self.view.frame.height / 12)
         buttonInnerLeftTier5.center = CGPoint(x: ((view.bounds.width / 4.25) / 2) + (view.bounds.width / 2), y: view.bounds.height * 1.0625 - 3.5)
-        buttonInnerLeftTier5.setTitle("click me!", for: UIControlState.normal)
-        buttonInnerLeftTier5.titleLabel?.font = UIFont(name: "Verdana", size: 15)
+        buttonInnerLeftTier5.setTitle(task.taskInnerLeftTier5, for: UIControlState.normal)
+        
         buttonAppearance(button: buttonInnerLeftTier5, state: todayLog.buttonInnerLeftTier5)
         buttonInnerLeftTier5.addTarget(self, action: #selector(buttonInAction), for: UIControlEvents.touchUpInside)
         self.view.addSubview(buttonInnerLeftTier5)
@@ -322,8 +311,8 @@ class ViewController: UIViewController {
         buttonInnerRightTier5.tag = 17
         buttonInnerRightTier5.frame = CGRect(x: 0, y: 0, width: self.view.frame.width / 4.5, height: self.view.frame.height / 12)
         buttonInnerRightTier5.center = CGPoint(x:(view.bounds.width / 2) - ((view.bounds.width / 4.25) / 2), y: view.bounds.height * 1.0625 - 3.5)
-        buttonInnerRightTier5.setTitle("click me!", for: UIControlState.normal)
-        buttonInnerRightTier5.titleLabel?.font = UIFont(name: "Verdana", size: 15)
+        buttonInnerRightTier5.setTitle(task.taskInnerRightTier5, for: UIControlState.normal)
+        
         buttonAppearance(button: buttonInnerRightTier5, state: todayLog.buttonInnerRightTier5)
         buttonInnerRightTier5.addTarget(self, action: #selector(buttonInAction), for: UIControlEvents.touchUpInside)
         self.view.addSubview(buttonInnerRightTier5)
@@ -335,8 +324,8 @@ class ViewController: UIViewController {
         buttonOutterRightTier5.tag = 18
         buttonOutterRightTier5.frame = CGRect(x: 0, y: 0, width: self.view.frame.width / 4.5, height: self.view.frame.height / 12)
         buttonOutterRightTier5.center = CGPoint(x: view.bounds.width - (view.bounds.width / 7), y: view.bounds.height * 1.0625 - 3.5)
-        buttonOutterRightTier5.setTitle("click me!", for: UIControlState.normal)
-        buttonOutterRightTier5.titleLabel?.font = UIFont(name: "Verdana", size: 15)
+        buttonOutterRightTier5.setTitle(task.taskOutterRightTier5, for: UIControlState.normal)
+   
         
         buttonAppearance(button: buttonOutterRightTier5, state: todayLog.buttonOutterRightTier5)
         
@@ -455,11 +444,7 @@ class ViewController: UIViewController {
             {
                 print("Batch delete error \(error)")
             }
-            
-//           todayLog = Today!
-//           todayLog.buttonTier1 = false
-//           todayLog.message = "I've updated from batch delete loop"
-//            todayLog.date = Date.init(timeIntervalSinceNow: 0)
+
             saveItems()
             intialiseEmptyDayLog()
         }
@@ -515,7 +500,11 @@ class ViewController: UIViewController {
     /// this is the function that determines what the button looks like in the 'on' and 'off' states.
     func buttonAppearance(button: UIButton, state: Bool)
     {
-        print(state)
+        // text appearance
+        button.titleLabel?.font = UIFont(name: "Verdana", size: 15)
+        button.titleLabel?.lineBreakMode = NSLineBreakMode.byWordWrapping
+        button.titleLabel?.textAlignment = NSTextAlignment.center
+        
         if state == false
         {
             button.setTitleColor(UIColor.white, for: UIControlState.normal)
