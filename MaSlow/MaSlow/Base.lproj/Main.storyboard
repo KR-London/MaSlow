@@ -25,12 +25,24 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="1340"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="flowertest1" translatesAutoresizingMaskIntoConstraints="NO" id="Ali-kf-DlP">
+                                <rect key="frame" x="46" y="342" width="282" height="450"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="O2k-F3-ny7">
+                                <rect key="frame" x="86" y="543" width="141" height="38"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                     </scrollView>
                     <size key="freeformSize" width="375" height="1340"/>
                     <connections>
                         <outlet property="backgroundImage" destination="21A-Lh-FYH" id="ek9-c2-pJ6"/>
                         <outlet property="scrollView" destination="25n-M9-01Q" id="uzm-rJ-Wvi"/>
+                        <outlet property="tempFlowerFilenameDisplay" destination="O2k-F3-ny7" id="4u2-ce-Jaz"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -39,6 +51,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="flowertest1" width="562" height="1218"/>
         <image name="longSkyGround" width="253" height="983"/>
     </resources>
 </document>

@@ -1,10 +1,7 @@
 //
 //  ViewController.swift
 //  MaSlow
-//
-//  Created by Kate Roberts on 15/10/2018.
-//  Copyright © 2018 Kate Roberts. All rights reserved.
-//
+
 
 import UIKit
 import CoreData
@@ -18,14 +15,20 @@ class ViewController: UIViewController {
     var dayLogArray: [Today]!
     let datafilepath = FileManager.default.urls(for: .documentDirectory,
                                                 in: .userDomainMask).first?.appendingPathComponent("Items.plist")
+    
+    var usage: [NSManagedObject] = []
+    
+
 
     //MARK: My local data variables for my code
     var todayLog: Today!
+    var usageLog: UsageLog!
     let task = Tasks()
  
     /// outlets to scroll view and the dirt/sky background
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var backgroundImage: UIImageView!
+    @IBOutlet weak var tempFlowerFilenameDisplay: UILabel!
     
     // declare buttons
     var buttonTier1: UIButton!
@@ -59,7 +62,12 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
    //     intialiseEmptyDayLog()
-
+        
+        /// This is a little debugging subroutine to let me simulate different values in teh data store. 
+        let dummyDate = Date.init(timeIntervalSinceNow: 0)
+        dummySimulateUsage(dummyData: ( dummyDate , "0110001"))
+        
+        
         /// my tutorial told me this would look better...
         scrollView.contentInsetAdjustmentBehavior = .never
         
@@ -75,6 +83,9 @@ class ViewController: UIViewController {
         // I was a bit worried about app being slow laoding. moved these calls lower down to avoid impression of 'hang'
         loadItems()
         makeSureCurrentDayLog()
+        print(datafilepath)
+        
+ 
         
         // Add Buttons to view
         addButtonTier1()
@@ -95,6 +106,32 @@ class ViewController: UIViewController {
         addButtonInnerLeftTier5()
         addButtonInnerRightTier5()
         addButtonOutterRightTier5()
+        
+        let usageString = usageTrackingSubroutine()
+    }
+    
+    //MARK: Button functions
+    /// this is the function that determines what the button looks like in the 'on' and 'off' states.
+    func buttonAppearance(button: UIButton, state: Bool)
+    {
+        // text appearance
+        button.titleLabel?.font = UIFont(name: "Verdana", size: 15)
+        button.titleLabel?.lineBreakMode = NSLineBreakMode.byWordWrapping
+        button.titleLabel?.textAlignment = NSTextAlignment.center
+        
+        if state == false
+        {
+            button.setTitleColor(UIColor.white, for: UIControlState.normal)
+            button.backgroundColor = UIColor(red: 54/255, green: 54/255, blue: 54/255, alpha: 1.0)
+            button.layer.borderWidth = 5
+            button.layer.cornerRadius = 20
+        }
+        else
+        {
+            button.setTitleColor(UIColor.yellow, for: UIControlState.normal)
+            button.backgroundColor = UIColor.clear
+        }
+        button.reloadInputViews()
     }
     
     func addButtonTier1() {
@@ -334,9 +371,7 @@ class ViewController: UIViewController {
         self.view.addSubview(buttonOutterRightTier5)
     }
     
-    
-    
-    
+    ///MARK: Button action method
   @IBAction func buttonInAction(sender: UIButton!) {
     
     var state = false
@@ -392,6 +427,7 @@ class ViewController: UIViewController {
 
  }
     
+    //MARK: Data loading subroutines
     func loadItems(){
         let request : NSFetchRequest<Today> = Today.fetchRequest()
         do{
@@ -404,6 +440,43 @@ class ViewController: UIViewController {
             print("Error fetching data \(error)")
         }
     }
+    
+    func loadUsage(){
+        let request : NSFetchRequest<UsageLog> = UsageLog.fetchRequest()
+        do{
+            try
+             usage = context.fetch(request)
+            //print(dayLogArray[0].buttonTier1)
+        }
+        catch
+        {
+            print("Error fetching data \(error)")
+        }
+    }
+    
+    /// This is a dummy subroutine for loading in possible scenarios of usage
+    func dummySimulateUsage(dummyData: (Date, String)){
+        var  usageLog = UsageLog.init(entity: NSEntityDescription.entity(forEntityName: "UsageLog", in:context)!, insertInto: context)
+        usageLog.lastUsed = dummyData.0
+        usageLog.usageString = dummyData.1
+        
+        /// As a placeholder for selecting the correct image from the stack, I'm displaying the filename on a label
+        let flowerFilename = "flower"+usageLog.usageString!+"jpg"
+        tempFlowerFilenameDisplay.text = flowerFilename
+        
+        
+        do{
+            try context.save() }
+        catch{
+            let nserror = error as NSError
+            fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
+            
+        }
+        //loadUsage()
+        
+    
+    }
+    
     
     func makeSureCurrentDayLog(){
         
@@ -491,34 +564,27 @@ class ViewController: UIViewController {
         saveItems()
     }
     
+    func usageTrackingSubroutine(){
+        /// flower subroutine
+        usageLog = UsageLog()
+        /// I need to load the data item for the flower.
+        
+        /// I need to read the last element.
+        
+        ///If the last element is not the same as today, i should append todays timestamp to the data
+        
+        /// What i would really want to do is work this as an array - but it not time efficient to work out that syntax now
+        
+        /// How about if i read the data, make an array of it, then
+    }
+    
+    //MARK: Miscellaneous
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
-    
-    /// this is the function that determines what the button looks like in the 'on' and 'off' states.
-    func buttonAppearance(button: UIButton, state: Bool)
-    {
-        // text appearance
-        button.titleLabel?.font = UIFont(name: "Verdana", size: 15)
-        button.titleLabel?.lineBreakMode = NSLineBreakMode.byWordWrapping
-        button.titleLabel?.textAlignment = NSTextAlignment.center
-        
-        if state == false
-        {
-            button.setTitleColor(UIColor.white, for: UIControlState.normal)
-            button.backgroundColor = UIColor(red: 54/255, green: 54/255, blue: 54/255, alpha: 1.0)
-            button.layer.borderWidth = 5
-            button.layer.cornerRadius = 20
-        }
-        else
-        {
-            button.setTitleColor(UIColor.yellow, for: UIControlState.normal)
-            button.backgroundColor = UIColor.clear
-        }
-        button.reloadInputViews()
-    }
     
     
 }

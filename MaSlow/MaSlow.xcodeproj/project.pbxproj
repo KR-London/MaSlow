@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		440590AC2176517C007AA78F /* Tasks.swift in Sources */ = {isa = PBXBuildFile; fileRef = 440590AB2176517C007AA78F /* Tasks.swift */; };
 		441714B62174BF6C003E0D1D /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 441714B52174BF6C003E0D1D /* Launch Screen.storyboard */; };
+		44B0E30D2176672800DE08BB /* flowertest1.png in Resources */ = {isa = PBXBuildFile; fileRef = 44B0E30C2176672700DE08BB /* flowertest1.png */; };
 		44CBA92421745E1D00B9C808 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44CBA92321745E1D00B9C808 /* AppDelegate.swift */; };
 		44CBA92621745E1D00B9C808 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44CBA92521745E1D00B9C808 /* ViewController.swift */; };
 		44CBA92921745E1D00B9C808 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 44CBA92721745E1D00B9C808 /* Main.storyboard */; };
@@ -31,6 +32,7 @@
 /* Begin PBXFileReference section */
 		440590AB2176517C007AA78F /* Tasks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tasks.swift; sourceTree = "<group>"; };
 		441714B52174BF6C003E0D1D /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
+		44B0E30C2176672700DE08BB /* flowertest1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = flowertest1.png; path = ../../flowertest1.png; sourceTree = "<group>"; };
 		44CBA92021745E1D00B9C808 /* MaSlow.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MaSlow.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		44CBA92321745E1D00B9C808 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		44CBA92521745E1D00B9C808 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -89,6 +91,7 @@
 				44CBA92721745E1D00B9C808 /* Main.storyboard */,
 				441714B52174BF6C003E0D1D /* Launch Screen.storyboard */,
 				44CBA92D21745E1D00B9C808 /* Assets.xcassets */,
+				44B0E30C2176672700DE08BB /* flowertest1.png */,
 				44CBA92F21745E1D00B9C808 /* LaunchScreen.storyboard */,
 				44CBA93221745E1D00B9C808 /* Info.plist */,
 				44CBA92A21745E1D00B9C808 /* MaSlow.xcdatamodeld */,
@@ -191,6 +194,7 @@
 				44CBA93121745E1D00B9C808 /* LaunchScreen.storyboard in Resources */,
 				44CBA92E21745E1D00B9C808 /* Assets.xcassets in Resources */,
 				441714B62174BF6C003E0D1D /* Launch Screen.storyboard in Resources */,
+				44B0E30D2176672800DE08BB /* flowertest1.png in Resources */,
 				44CBA92921745E1D00B9C808 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

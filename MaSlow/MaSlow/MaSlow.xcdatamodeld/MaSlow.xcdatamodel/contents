@@ -23,16 +23,11 @@
         <attribute name="message" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <entity name="UsageLog" representedClassName="UsageLog" syncable="YES" codeGenerationType="class">
-        <attribute name="day1" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
-        <attribute name="day2" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
-        <attribute name="day3" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
-        <attribute name="day4" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
-        <attribute name="day5" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
-        <attribute name="day6" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
-        <attribute name="day7" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="lastUsed" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="usageString" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <elements>
         <element name="Today" positionX="-54" positionY="-9" width="128" height="345"/>
-        <element name="UsageLog" positionX="-54" positionY="144" width="128" height="150"/>
+        <element name="UsageLog" positionX="-54" positionY="144" width="128" height="75"/>
     </elements>
 </model>
