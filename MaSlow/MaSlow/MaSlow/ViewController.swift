@@ -133,9 +133,11 @@ class ViewController: UIViewController {
         label.font = UIFont(name: "Verdana", size: 17)
         label.backgroundColor = UIColor(patternImage: UIImage(named: "Cloud")!)
         label.lineBreakMode = NSLineBreakMode.byWordWrapping
+        label.clipsToBounds = true
         label.textAlignment = NSTextAlignment.center
-        label.layer.cornerRadius = 7
+        label.layer.cornerRadius = 15
         label.layer.borderWidth = 2
+        label.layer.borderColor = UIColor.white.cgColor
         label.isHidden = false
         self.view.addSubview(label)
     }
@@ -490,42 +492,16 @@ class ViewController: UIViewController {
         
         // refresh the appearance of the button
         buttonAppearance(button: sender, state: state)
-        if todayLog.buttonOutterLeftTier5 == true {
-            makeLabel(quote: quotesTier5[Int(arc4random_uniform(UInt32(quotesTier5.count)))])
-        } else if todayLog.buttonInnerLeftTier5 == true {
-            makeLabel(quote: quotesTier5[Int(arc4random_uniform(UInt32(quotesTier5.count)))])
-        } else if todayLog.buttonInnerRightTier5 == true {
-            makeLabel(quote: quotesTier5[Int(arc4random_uniform(UInt32(quotesTier5.count)))])
-        } else if todayLog.buttonOutterRightTier5 == true {
-            makeLabel(quote: quotesTier5[Int(arc4random_uniform(UInt32(quotesTier5.count)))])
-        } else if todayLog.buttonLeftTier4 == true {
-            makeLabel(quote: quotesTier4[Int(arc4random_uniform(UInt32(quotesTier4.count)))])
-        } else if todayLog.buttonMidTier4 == true {
-            makeLabel(quote: quotesTier4[Int(arc4random_uniform(UInt32(quotesTier4.count)))])
-        } else if todayLog.buttonRightTier4 == true {
-            makeLabel(quote: quotesTier4[Int(arc4random_uniform(UInt32(quotesTier4.count)))])
-        } else if todayLog.buttonLeftTier3 == true {
-            makeLabel(quote: quotesTier3[Int(arc4random_uniform(UInt32(quotesTier3.count)))])
-        } else if todayLog.buttonRightTier3 == true {
-            makeLabel(quote: quotesTier3[Int(arc4random_uniform(UInt32(quotesTier3.count)))])
-        } else if todayLog.buttonSecondLeftTier3 == true {
-            makeLabel(quote: quotesTier3[Int(arc4random_uniform(UInt32(quotesTier3.count)))])
-        } else if todayLog.buttonSecondRightTier3 == true {
-            makeLabel(quote: quotesTier3[Int(arc4random_uniform(UInt32(quotesTier3.count)))])
-        } else if todayLog.buttonLeftTier2 == true {
-            makeLabel(quote: quotesTier2[Int(arc4random_uniform(UInt32(quotesTier2.count)))])
-        } else if todayLog.buttonMidTier2 == true {
-            makeLabel(quote: quotesTier2[Int(arc4random_uniform(UInt32(quotesTier2.count)))])
-        } else if todayLog.buttonRightTier2 == true {
-            makeLabel(quote: quotesTier2[Int(arc4random_uniform(UInt32(quotesTier2.count)))])
-        } else if todayLog.buttonSecondLeftTier2 == true {
-            makeLabel(quote: quotesTier2[Int(arc4random_uniform(UInt32(quotesTier2.count)))])
-        } else if todayLog.buttonSecondMidTier2 == true {
-            makeLabel(quote: quotesTier2[Int(arc4random_uniform(UInt32(quotesTier2.count)))])
-        } else if todayLog.buttonSecondRightTier2 == true {
-            makeLabel(quote: quotesTier2[Int(arc4random_uniform(UInt32(quotesTier2.count)))])
-        } else if todayLog.buttonTier1 == true {
+        if todayLog.buttonTier1 == true {
             makeLabel(quote: quotesTier1[Int(arc4random_uniform(UInt32(quotesTier1.count)))])
+        } else if todayLog.buttonLeftTier2 && todayLog.buttonMidTier2 && todayLog.buttonRightTier2 == true && todayLog.buttonSecondLeftTier2 && todayLog.buttonSecondMidTier2 && todayLog.buttonSecondRightTier2 {
+            makeLabel(quote: quotesTier2[Int(arc4random_uniform(UInt32(quotesTier2.count)))])
+        } else if todayLog.buttonLeftTier3 && todayLog.buttonRightTier3 && todayLog.buttonSecondLeftTier3 && todayLog.buttonSecondRightTier3 {
+            makeLabel(quote: quotesTier3[Int(arc4random_uniform(UInt32(quotesTier3.count)))])
+        } else if todayLog.buttonLeftTier4 && todayLog.buttonMidTier4 && todayLog.buttonRightTier4 {
+            makeLabel(quote: quotesTier4[Int(arc4random_uniform(UInt32(quotesTier4.count)))])
+        } else if todayLog.buttonOutterLeftTier5 && todayLog.buttonInnerLeftTier5 && todayLog.buttonInnerRightTier5 && todayLog.buttonOutterRightTier5 {
+            makeLabel(quote: quotesTier5[Int(arc4random_uniform(UInt32(quotesTier5.count)))])
         } else {
             makeLabel(quote: "You are amazing!")
         }
