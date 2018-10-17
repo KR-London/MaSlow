@@ -16,16 +16,13 @@ class ViewController: UIViewController {
     var usageLogArray: [UsageLog]!
     let datafilepath = FileManager.default.urls(for: .documentDirectory,
                                                 in: .userDomainMask).first?.appendingPathComponent("Items.plist")
-    
     var usage: [NSManagedObject] = []
     
-
-
     //MARK: My local data variables for my code
     var todayLog: Today!
     var usageLog: UsageLog!
     let task = Tasks()
- 
+    
     /// outlets to scroll view and the dirt/sky background
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var backgroundImage: UIImageView!
@@ -59,11 +56,18 @@ class ViewController: UIViewController {
     var Tier4: Bool = false
     var Tier5: Bool = false
     
+    // assigning sentences for each tier
+    var quotesTier1:[String]=["1tier1","2tier1","3tier1","4tier1"]
+    var quotesTier2:[String]=["1tier2","2tier2","3tier2","4tier2"]
+    var quotesTier3:[String]=["1tier3","2tier3","3tier3","4tier3"]
+    var quotesTier4:[String]=["1tier4","2tier4","3tier4","4tier4"]
+    var quotesTier5:[String]=["1tier5","2tier5","3tier5","4tier5"]
+    
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
-   //     intialiseEmptyDayLog()
+        //     intialiseEmptyDayLog()
         
         /// This is a little debugging subroutine to let me simulate different values in teh data store. 
         let dummyDate = Date.init(timeIntervalSinceNow: 0)
@@ -87,7 +91,7 @@ class ViewController: UIViewController {
         makeSureCurrentDayLog()
         print(datafilepath)
         
- 
+        
         
         // Add Buttons to view
         addButtonTier1()
@@ -112,11 +116,11 @@ class ViewController: UIViewController {
         loadUsage()
         /// load the correct flower picture
         addFlower()
-
-        // Create Hidden Label
-        makeLabel(quote: "Test Label")
         
-         usageTrackingSubroutine()
+        // Create Hidden Label
+        makeLabel(quote: "You are amazing!")
+        
+        //         usageTrackingSubroutine()
     }
     
     //MARK: Code for non-button UI elements
@@ -127,7 +131,7 @@ class ViewController: UIViewController {
         label.textAlignment = .center
         label.text = quote
         label.font = UIFont(name: "Verdana", size: 17)
-        label.backgroundColor = UIColor(patternImage: UIImage(named: "Stonev2")!)
+        label.backgroundColor = UIColor(patternImage: UIImage(named: "Cloud")!)
         label.lineBreakMode = NSLineBreakMode.byWordWrapping
         label.textAlignment = NSTextAlignment.center
         label.layer.cornerRadius = 7
@@ -138,32 +142,32 @@ class ViewController: UIViewController {
     
     func addFlower(){
         
-         guard let flowerFilenameString = usageLog.usageString
+        guard let flowerFilenameString = usageLog.usageString
             else{
                 tempFlowerFilenameDisplay.text = "No usage log data found"
                 return
         }
         tempFlowerFilenameDisplay.text = "flower" + flowerFilenameString + "jpg"
-
+        
         //      {tempFlowerFilenameDisplay.text = flowerFilename}
-//        //// As a placeholder for selecting the correct image from the stack, I'm displaying the filename on a label
-//        if let usageLog.usageString? != nil
-//        {
-//            let flowerFilename = "flower" + usageLog.usageString! + "jpg"
-//            tempFlowerFilenameDisplay.text = flowerFilename
-//        }
-//        else{
-//            self.tempFlowerFilenameDisplay.text = "Nothing in the usage log"
-//        }
-//
+        //        //// As a placeholder for selecting the correct image from the stack, I'm displaying the filename on a label
+        //        if let usageLog.usageString? != nil
+        //        {
+        //            let flowerFilename = "flower" + usageLog.usageString! + "jpg"
+        //            tempFlowerFilenameDisplay.text = flowerFilename
+        //        }
+        //        else{
+        //            self.tempFlowerFilenameDisplay.text = "Nothing in the usage log"
+        //        }
+        //
         let flowerFilename = "flower" + flowerFilenameString
         if let image = UIImage(named: flowerFilename)
         {
             flowerImageView.image = image
         }
         else{
-                //flowerImageView.image = UIImage(named: "flowertest1")
-                return
+            //flowerImageView.image = UIImage(named: "flowertest1")
+            return
         }
         
         
@@ -178,8 +182,8 @@ class ViewController: UIViewController {
     func buttonAppearance(button: UIButton, state: Bool)
     {
         // text appearance
-       // let image = UIImage(named: "Stonev2") as UIImage?
-       // button.setBackgroundImage(image, for: .normal)
+        // let image = UIImage(named: "Stonev2") as UIImage?
+        // button.setBackgroundImage(image, for: .normal)
         button.clipsToBounds = true
         button.titleLabel?.font = UIFont(name: "Verdana", size: 15)
         button.titleLabel?.lineBreakMode = NSLineBreakMode.byWordWrapping
@@ -207,11 +211,11 @@ class ViewController: UIViewController {
         buttonTier1.center = CGPoint(x: view.bounds.width / 2, y: view.bounds.height * 1.75 - 3.5)
         
         buttonTier1.setTitle( task.taskTier1, for: UIControlState.normal)
-
+        
         
         /// I've moved appearance code into separate func so we can bulk update the appearance
         buttonAppearance(button: buttonTier1, state: todayLog.buttonTier1)
-                buttonTier1.addTarget(self, action: #selector(buttonInAction), for: UIControlEvents.touchUpInside)
+        buttonTier1.addTarget(self, action: #selector(buttonInAction), for: UIControlEvents.touchUpInside)
         
         self.view.addSubview(buttonTier1)
     }
@@ -222,9 +226,9 @@ class ViewController: UIViewController {
         buttonLeftTier2.frame = CGRect(x: 0, y: 0, width: self.view.frame.width / 3.5, height: self.view.frame.height / 12)
         buttonLeftTier2.center = CGPoint(x: view.bounds.width / 6, y: view.bounds.height * 1.6353 - 3.5)
         buttonLeftTier2.setTitle(task.taskLeftTier2, for: UIControlState.normal)
-     
+        
         buttonAppearance(button: buttonLeftTier2, state: todayLog.buttonLeftTier2)
-
+        
         buttonLeftTier2.addTarget(self, action: #selector(buttonInAction), for: UIControlEvents.touchUpInside)
         self.view.addSubview(buttonLeftTier2)
     }
@@ -261,7 +265,7 @@ class ViewController: UIViewController {
         buttonSecondLeftTier2.frame = CGRect(x: 0, y: 0, width: self.view.frame.width / 3.5, height: self.view.frame.height / 12)
         buttonSecondLeftTier2.center = CGPoint(x: view.bounds.width / 6, y: view.bounds.height * 1.52 - 3.5)
         buttonSecondLeftTier2.setTitle(task.taskSecondLeftTier2, for: UIControlState.normal)
-       
+        
         buttonAppearance(button: buttonSecondLeftTier2, state: todayLog.buttonSecondLeftTier2)
         
         buttonSecondLeftTier2.addTarget(self, action: #selector(buttonInAction), for: UIControlEvents.touchUpInside)
@@ -287,8 +291,8 @@ class ViewController: UIViewController {
         buttonSecondRightTier2.frame = CGRect(x: 0, y: 0, width: self.view.frame.width / 3.5, height: self.view.frame.height / 12)
         buttonSecondRightTier2.center = CGPoint(x: view.bounds.width - (view.bounds.width / 6), y: view.bounds.height * 1.52 - 3.5)
         buttonSecondRightTier2.setTitle(task.taskSecondRightTier2, for: UIControlState.normal)
-     
-       
+        
+        
         buttonAppearance(button: buttonSecondRightTier2, state: todayLog.buttonSecondRightTier2)
         
         buttonSecondRightTier2.addTarget(self, action: #selector(buttonInAction), for: UIControlEvents.touchUpInside)
@@ -301,7 +305,7 @@ class ViewController: UIViewController {
         buttonLeftTier3.frame = CGRect(x: 0, y: 0, width: self.view.frame.width / 2.5, height: self.view.frame.height / 12)
         buttonLeftTier3.center = CGPoint(x: view.bounds.width / 3.75, y: view.bounds.height * 1.406 - 3.5)
         buttonLeftTier3.setTitle(task.taskLeftTier3, for: UIControlState.normal)
-       
+        
         buttonAppearance(button: buttonLeftTier3, state: todayLog.buttonLeftTier3)
         
         buttonLeftTier3.addTarget(self, action: #selector(buttonInAction), for: UIControlEvents.touchUpInside)
@@ -314,7 +318,7 @@ class ViewController: UIViewController {
         buttonRightTier3.frame = CGRect(x: 0, y: 0, width: self.view.frame.width / 2.5, height: self.view.frame.height / 12)
         buttonRightTier3.center = CGPoint(x: view.bounds.width - (view.bounds.width / 3.75), y: view.bounds.height * 1.406 - 3.5)
         buttonRightTier3.setTitle(task.taskRightTier3, for: UIControlState.normal)
-      
+        
         buttonAppearance(button: buttonRightTier3, state: todayLog.buttonRightTier3)
         
         buttonRightTier3.addTarget(self, action: #selector(buttonInAction), for: UIControlEvents.touchUpInside)
@@ -327,7 +331,7 @@ class ViewController: UIViewController {
         buttonSecondLeftTier3.frame = CGRect(x: 0, y: 0, width: self.view.frame.width / 2.5, height: self.view.frame.height / 12)
         buttonSecondLeftTier3.center = CGPoint(x: view.bounds.width / 3.75, y: view.bounds.height * 1.291 - 3.5)
         buttonSecondLeftTier3.setTitle(task.taskSecondLeftTier3, for: UIControlState.normal)
-       
+        
         buttonAppearance(button: buttonSecondLeftTier3, state: todayLog.buttonSecondLeftTier3)
         
         buttonSecondLeftTier3.addTarget(self, action: #selector(buttonInAction), for: UIControlEvents.touchUpInside)
@@ -340,9 +344,9 @@ class ViewController: UIViewController {
         buttonSecondRightTier3.frame = CGRect(x: 0, y: 0, width: self.view.frame.width / 2.5, height: self.view.frame.height / 12)
         buttonSecondRightTier3.center = CGPoint(x: view.bounds.width - (view.bounds.width / 3.75), y: view.bounds.height * 1.291 - 3.5)
         buttonSecondRightTier3.setTitle(task.taskSecondRightTier3, for: UIControlState.normal)
-      
+        
         buttonAppearance(button: buttonSecondRightTier3, state: todayLog.buttonSecondRightTier3)
-    
+        
         
         buttonSecondRightTier3.addTarget(self, action: #selector(buttonInAction), for: UIControlEvents.touchUpInside)
         self.view.addSubview(buttonSecondRightTier3)
@@ -354,9 +358,9 @@ class ViewController: UIViewController {
         buttonLeftTier4.frame = CGRect(x: 0, y: 0, width: self.view.frame.width / 3.5, height: self.view.frame.height / 12)
         buttonLeftTier4.center = CGPoint(x: view.bounds.width / 6, y: view.bounds.height * 1.177 - 3.5)
         buttonLeftTier4.setTitle(task.taskLeftTier4, for: UIControlState.normal)
-       
+        
         buttonAppearance(button: buttonLeftTier4, state: todayLog.buttonLeftTier4)
-
+        
         buttonLeftTier4.addTarget(self, action: #selector(buttonInAction), for: UIControlEvents.touchUpInside)
         self.view.addSubview(buttonLeftTier4)
     }
@@ -428,25 +432,25 @@ class ViewController: UIViewController {
         buttonOutterRightTier5.frame = CGRect(x: 0, y: 0, width: self.view.frame.width / 4.5, height: self.view.frame.height / 12)
         buttonOutterRightTier5.center = CGPoint(x: view.bounds.width - (view.bounds.width / 7), y: view.bounds.height * 1.0625 - 3.5)
         buttonOutterRightTier5.setTitle(task.taskOutterRightTier5, for: UIControlState.normal)
-   
+        
         
         buttonAppearance(button: buttonOutterRightTier5, state: todayLog.buttonOutterRightTier5)
         
-    
+        
         buttonOutterRightTier5.addTarget(self, action: #selector(buttonInAction), for: UIControlEvents.touchUpInside)
         self.view.addSubview(buttonOutterRightTier5)
     }
     
     ///MARK: Button action method
-  @IBAction func buttonInAction(sender: UIButton!) {
-    
-    var state = false
-    
-    /// This is a brutal way of saying 'whatever the state of the button is, swap it'
-    switch sender.tag
-    {
+    @IBAction func buttonInAction(sender: UIButton!) {
+        
+        var state = false
+        
+        /// This is a brutal way of saying 'whatever the state of the button is, swap it'
+        switch sender.tag
+        {
         case 1: todayLog.buttonTier1 = !todayLog.buttonTier1
-            state = todayLog.buttonTier1
+        state = todayLog.buttonTier1
         case 2: todayLog.buttonLeftTier2 = !todayLog.buttonLeftTier2
         state = todayLog.buttonLeftTier2
         case 3: todayLog.buttonMidTier2 = !todayLog.buttonMidTier2
@@ -482,16 +486,54 @@ class ViewController: UIViewController {
         case 18:  todayLog.buttonOutterRightTier5 = !todayLog.buttonOutterRightTier5
         state = todayLog.buttonOutterRightTier5
         default:print("none of the above")
+        }
+        
+        // refresh the appearance of the button
+        buttonAppearance(button: sender, state: state)
+        if todayLog.buttonOutterLeftTier5 == true {
+            makeLabel(quote: quotesTier5[Int(arc4random_uniform(UInt32(quotesTier5.count)))])
+        } else if todayLog.buttonInnerLeftTier5 == true {
+            makeLabel(quote: quotesTier5[Int(arc4random_uniform(UInt32(quotesTier5.count)))])
+        } else if todayLog.buttonInnerRightTier5 == true {
+            makeLabel(quote: quotesTier5[Int(arc4random_uniform(UInt32(quotesTier5.count)))])
+        } else if todayLog.buttonOutterRightTier5 == true {
+            makeLabel(quote: quotesTier5[Int(arc4random_uniform(UInt32(quotesTier5.count)))])
+        } else if todayLog.buttonLeftTier4 == true {
+            makeLabel(quote: quotesTier4[Int(arc4random_uniform(UInt32(quotesTier4.count)))])
+        } else if todayLog.buttonMidTier4 == true {
+            makeLabel(quote: quotesTier4[Int(arc4random_uniform(UInt32(quotesTier4.count)))])
+        } else if todayLog.buttonRightTier4 == true {
+            makeLabel(quote: quotesTier4[Int(arc4random_uniform(UInt32(quotesTier4.count)))])
+        } else if todayLog.buttonLeftTier3 == true {
+            makeLabel(quote: quotesTier3[Int(arc4random_uniform(UInt32(quotesTier3.count)))])
+        } else if todayLog.buttonRightTier3 == true {
+            makeLabel(quote: quotesTier3[Int(arc4random_uniform(UInt32(quotesTier3.count)))])
+        } else if todayLog.buttonSecondLeftTier3 == true {
+            makeLabel(quote: quotesTier3[Int(arc4random_uniform(UInt32(quotesTier3.count)))])
+        } else if todayLog.buttonSecondRightTier3 == true {
+            makeLabel(quote: quotesTier3[Int(arc4random_uniform(UInt32(quotesTier3.count)))])
+        } else if todayLog.buttonLeftTier2 == true {
+            makeLabel(quote: quotesTier2[Int(arc4random_uniform(UInt32(quotesTier2.count)))])
+        } else if todayLog.buttonMidTier2 == true {
+            makeLabel(quote: quotesTier2[Int(arc4random_uniform(UInt32(quotesTier2.count)))])
+        } else if todayLog.buttonRightTier2 == true {
+            makeLabel(quote: quotesTier2[Int(arc4random_uniform(UInt32(quotesTier2.count)))])
+        } else if todayLog.buttonSecondLeftTier2 == true {
+            makeLabel(quote: quotesTier2[Int(arc4random_uniform(UInt32(quotesTier2.count)))])
+        } else if todayLog.buttonSecondMidTier2 == true {
+            makeLabel(quote: quotesTier2[Int(arc4random_uniform(UInt32(quotesTier2.count)))])
+        } else if todayLog.buttonSecondRightTier2 == true {
+            makeLabel(quote: quotesTier2[Int(arc4random_uniform(UInt32(quotesTier2.count)))])
+        } else if todayLog.buttonTier1 == true {
+            makeLabel(quote: quotesTier1[Int(arc4random_uniform(UInt32(quotesTier1.count)))])
+        } else {
+            makeLabel(quote: "You are amazing!")
+        }
+        self.view.setNeedsDisplay()
+        // save the changed data to the database
+        saveItems()
+        
     }
-
-    // refresh the appearance of the button
-    buttonAppearance(button: sender, state: state)
-    self.view.setNeedsDisplay()
-    
-    // save the changed data to the database
-    saveItems()
-
- }
     
     //MARK: Data loading subroutines
     func loadItems(){
@@ -499,7 +541,7 @@ class ViewController: UIViewController {
         do{
             try
                 dayLogArray = context.fetch(request)
-                //print(dayLogArray[0].buttonTier1)
+            //print(dayLogArray[0].buttonTier1)
         }
         catch
         {
@@ -511,7 +553,7 @@ class ViewController: UIViewController {
         let request : NSFetchRequest<UsageLog> = UsageLog.fetchRequest()
         do{
             try
-             usageLogArray = context.fetch(request)
+                usageLogArray = context.fetch(request)
             if usageLogArray.count > 0
             {
                 self.usageLog = usageLogArray[0]
@@ -528,19 +570,19 @@ class ViewController: UIViewController {
         var  usageLog = UsageLog.init(entity: NSEntityDescription.entity(forEntityName: "UsageLog", in:context)!, insertInto: context)
         usageLog.lastUsed = dummyData.0
         usageLog.usageString = dummyData.1
-
+        
         
         saveItems()
-//        do{
-//            try context.save() }
-//        catch{
-//            let nserror = error as NSError
-//            fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
-//
-//        }
+        //        do{
+        //            try context.save() }
+        //        catch{
+        //            let nserror = error as NSError
+        //            fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
+        //
+        //        }
         //loadUsage()
         
-    
+        
     }
     
     
@@ -551,7 +593,7 @@ class ViewController: UIViewController {
         
         // If the data is empty or corrupted, i want to start afresh.
         if dayLogArray == nil || dayLogArray.count != 1{
-           deleteIndicator = true
+            deleteIndicator = true
         }
         else { /// put this in an else loop, so I don;t by mistake try to unwrap a nil object
             let temp = dayLogArray[0]
@@ -580,7 +622,7 @@ class ViewController: UIViewController {
             intialiseEmptyDayLog()
         }
         else{
-                todayLog = dayLogArray[0]
+            todayLog = dayLogArray[0]
         }
     }
     
@@ -635,19 +677,19 @@ class ViewController: UIViewController {
         else
         {
             usageLog = usageLogArray[0]
-      
-        /// I need to read the last element.
-        let datestampOnData = usageLog.lastUsed?.description.split(separator: " ")[0]
-        let datestampNow = Date.init(timeIntervalSinceNow: 0).description.split(separator: " ")[0]
-        
-        ///If the last element is not the same as today, i should append todays timestamp to the data
-        if String(datestampNow) != String(describing: datestampOnData)
-        {
-           /// check that this is counting calendar dates, not 24hr periods >>> unit tests
-            let daysSinceLastUse = Calendar.current.dateComponents([.day], from: usageLog.lastUsed!, to: Date.init(timeIntervalSinceNow: 0)).day
             
-           switch daysSinceLastUse!
+            /// I need to read the last element.
+            let datestampOnData = usageLog.lastUsed?.description.split(separator: " ")[0]
+            let datestampNow = Date.init(timeIntervalSinceNow: 0).description.split(separator: " ")[0]
+            
+            ///If the last element is not the same as today, i should append todays timestamp to the data
+            if String(datestampNow) != String(describing: datestampOnData)
             {
+                /// check that this is counting calendar dates, not 24hr periods >>> unit tests
+                let daysSinceLastUse = Calendar.current.dateComponents([.day], from: usageLog.lastUsed!, to: Date.init(timeIntervalSinceNow: 0)).day
+                
+                switch daysSinceLastUse!
+                {
                 case 1:
                     usageLog.usageString = String(describing: usageLog.usageString?.dropLast(1))
                     usageLog.usageString?.append("1")
@@ -669,16 +711,16 @@ class ViewController: UIViewController {
                 default:
                     usageLog.usageString = "1000000"
                     print("none of the above")
-            }
-            
-            ///sanity check
-            if usageLog.usageString?.count != 7
-            {
-                print("My usage string is \(String(describing: usageLog.usageString)). Does this look right to you?")
+                }
+                
+                ///sanity check
+                if usageLog.usageString?.count != 7
+                {
+                    print("My usage string is \(String(describing: usageLog.usageString)). Does this look right to you?")
+                }
             }
         }
-    }
-
+        
     }
     
     //MARK: Miscellaneous
