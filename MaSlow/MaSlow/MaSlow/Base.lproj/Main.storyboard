@@ -41,6 +41,7 @@
                     <size key="freeformSize" width="375" height="1340"/>
                     <connections>
                         <outlet property="backgroundImage" destination="21A-Lh-FYH" id="ek9-c2-pJ6"/>
+                        <outlet property="flowerImageView" destination="Ali-kf-DlP" id="WyM-FF-Pi3"/>
                         <outlet property="scrollView" destination="25n-M9-01Q" id="uzm-rJ-Wvi"/>
                         <outlet property="tempFlowerFilenameDisplay" destination="O2k-F3-ny7" id="4u2-ce-Jaz"/>
                     </connections>

@@ -13,6 +13,7 @@ class ViewController: UIViewController {
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     var dayLog: [NSManagedObject] = []
     var dayLogArray: [Today]!
+    var usageLogArray: [UsageLog]!
     let datafilepath = FileManager.default.urls(for: .documentDirectory,
                                                 in: .userDomainMask).first?.appendingPathComponent("Items.plist")
     
@@ -29,6 +30,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var backgroundImage: UIImageView!
     @IBOutlet weak var tempFlowerFilenameDisplay: UILabel!
+    @IBOutlet weak var flowerImageView: UIImageView!
     
     // declare buttons
     var buttonTier1: UIButton!
@@ -64,8 +66,8 @@ class ViewController: UIViewController {
    //     intialiseEmptyDayLog()
         
         /// This is a little debugging subroutine to let me simulate different values in teh data store. 
-        let dummyDate = Date.init(timeIntervalSinceNow: 0)
-        dummySimulateUsage(dummyData: ( dummyDate , "0110001"))
+       // let dummyDate = Date.init(timeIntervalSinceNow: 0)
+       // dummySimulateUsage(dummyData: ( dummyDate , "0110011"))
         
         
         /// my tutorial told me this would look better...
@@ -107,39 +109,18 @@ class ViewController: UIViewController {
         addButtonInnerRightTier5()
         addButtonOutterRightTier5()
         
+        loadUsage()
+        print(usageLog!)
+        /// load the correct flower picture
+        addFlower()
+
         // Create Hidden Label
         makeLabel(quote: "Test Label")
         
-        let usageString = usageTrackingSubroutine()
+        usageTrackingSubroutine()
     }
     
-    //MARK: Button functions
-    /// this is the function that determines what the button looks like in the 'on' and 'off' states.
-    func buttonAppearance(button: UIButton, state: Bool)
-    {
-        // text appearance
-        let image = UIImage(named: "Stonev2") as UIImage?
-        button.setBackgroundImage(image, for: .normal)
-        button.clipsToBounds = true
-        button.titleLabel?.font = UIFont(name: "Verdana", size: 15)
-        button.titleLabel?.lineBreakMode = NSLineBreakMode.byWordWrapping
-        button.titleLabel?.textAlignment = NSTextAlignment.center
-        
-        if state == false
-        {
-            button.setTitleColor(UIColor.black, for: .normal)
-            button.backgroundColor = UIColor(red: 54/255, green: 54/255, blue: 54/255, alpha: 1.0)
-            button.layer.borderWidth = 5
-            button.layer.cornerRadius = 20
-        }
-        else
-        {
-            button.setTitleColor(UIColor.yellow, for: .normal)
-            button.backgroundColor = UIColor.clear
-        }
-        button.reloadInputViews()
-    }
-    
+    //MARK: Code for non-button UI elements
     // Label Creation
     func makeLabel(quote: String) {
         let label = UILabel(frame: CGRect(x: 0, y: 0, width: view.bounds.width / 1.5, height: view.bounds.height / 4.5))
@@ -147,13 +128,73 @@ class ViewController: UIViewController {
         label.textAlignment = .center
         label.text = quote
         label.font = UIFont(name: "Verdana", size: 17)
-        label.backgroundColor = UIColor(patternImage: UIImage(named: "field")!)
+        label.backgroundColor = UIColor(patternImage: UIImage(named: "Stonev2")!)
         label.lineBreakMode = NSLineBreakMode.byWordWrapping
         label.textAlignment = NSTextAlignment.center
         label.layer.cornerRadius = 7
         label.layer.borderWidth = 2
         label.isHidden = false
         self.view.addSubview(label)
+    }
+    
+    func addFlower(){
+        guard let flowerFilenameString = usageLog.usageString
+            else{
+                tempFlowerFilenameDisplay.text = "No usage log data found"
+                return
+        }
+        tempFlowerFilenameDisplay.text = "flower" + flowerFilenameString + "jpg"
+        
+        //      {tempFlowerFilenameDisplay.text = flowerFilename}
+//        //// As a placeholder for selecting the correct image from the stack, I'm displaying the filename on a label
+//        if let usageLog.usageString? != nil
+//        {
+//            let flowerFilename = "flower" + usageLog.usageString! + "jpg"
+//            tempFlowerFilenameDisplay.text = flowerFilename
+//        }
+//        else{
+//            self.tempFlowerFilenameDisplay.text = "Nothing in the usage log"
+//        }
+//
+        let flowerFilename = "flower" + flowerFilenameString
+        if let image = UIImage(named: flowerFilename)
+        {
+            flowerImageView.image = image
+        }
+        else{
+                flowerImageView.image = UIImage(named: "flowertest1")
+                return
+        }
+    }
+    
+    
+    
+    
+    //MARK: Button functions
+    /// this is the function that determines what the button looks like in the 'on' and 'off' states.
+    func buttonAppearance(button: UIButton, state: Bool)
+    {
+        // text appearance
+       // let image = UIImage(named: "Stonev2") as UIImage?
+       // button.setBackgroundImage(image, for: .normal)
+        button.clipsToBounds = true
+        button.titleLabel?.font = UIFont(name: "Verdana", size: 15)
+        button.titleLabel?.lineBreakMode = NSLineBreakMode.byWordWrapping
+        button.titleLabel?.textAlignment = NSTextAlignment.center
+        
+        if state == false
+        {
+            button.setTitleColor(UIColor(red: 250/255, green: 192/255, blue: 114/255, alpha: 1.0), for: .normal)
+            button.backgroundColor = UIColor.black                //UIColor(red: 138/255, green: 69/255, blue: 40/255, alpha: 1.0)
+            //button.layer.borderWidth = 5
+            button.layer.cornerRadius = 30
+        }
+        else
+        {
+            button.setTitleColor(UIColor.black, for: .normal)
+            button.backgroundColor = UIColor.clear
+        }
+        button.reloadInputViews()
     }
     
     func addButtonTier1() {
@@ -467,8 +508,13 @@ class ViewController: UIViewController {
         let request : NSFetchRequest<UsageLog> = UsageLog.fetchRequest()
         do{
             try
-             usage = context.fetch(request)
-            //print(dayLogArray[0].buttonTier1)
+             usageLogArray = context.fetch(request)
+            if usageLogArray.count > 0
+            {
+                self.usageLog = usageLogArray[0]
+            }
+            
+             print( usageLogArray[0].usageString)
         }
         catch
         {
@@ -481,19 +527,16 @@ class ViewController: UIViewController {
         var  usageLog = UsageLog.init(entity: NSEntityDescription.entity(forEntityName: "UsageLog", in:context)!, insertInto: context)
         usageLog.lastUsed = dummyData.0
         usageLog.usageString = dummyData.1
+
         
-        /// As a placeholder for selecting the correct image from the stack, I'm displaying the filename on a label
-        let flowerFilename = "flower"+usageLog.usageString!+"jpg"
-        tempFlowerFilenameDisplay.text = flowerFilename
-        
-        
-        do{
-            try context.save() }
-        catch{
-            let nserror = error as NSError
-            fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
-            
-        }
+        saveItems()
+//        do{
+//            try context.save() }
+//        catch{
+//            let nserror = error as NSError
+//            fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
+//
+//        }
         //loadUsage()
         
     
@@ -579,16 +622,59 @@ class ViewController: UIViewController {
     
     func usageTrackingSubroutine(){
         /// flower subroutine
-        usageLog = UsageLog()
+        
         /// I need to load the data item for the flower.
+        loadUsage()
+        
+        // little safety subroutine in case I don't have data
+        if usageLogArray == nil || usageLogArray.count == 1
+        {
+            /// initialise new
+        }
+        usageLog = usageLogArray[0]
         
         /// I need to read the last element.
+        let datestampOnData = usageLog.lastUsed?.description.split(separator: " ")[0]
+        let datestampNow = Date.init(timeIntervalSinceNow: 0).description.split(separator: " ")[0]
         
         ///If the last element is not the same as today, i should append todays timestamp to the data
-        
-        /// What i would really want to do is work this as an array - but it not time efficient to work out that syntax now
-        
-        /// How about if i read the data, make an array of it, then
+        if String(datestampNow) != String(describing: datestampOnData)
+        {
+           /// check that this is counting calendar dates, not 24hr periods >>> unit tests
+            let daysSinceLastUse = Calendar.current.dateComponents([.day], from: usageLog.lastUsed!, to: Date.init(timeIntervalSinceNow: 0)).day
+            
+           switch daysSinceLastUse!
+            {
+                case 1:
+                    usageLog.usageString = String(describing: usageLog.usageString?.dropLast(1))
+                    usageLog.usageString?.append("1")
+                case 2:
+                    usageLog.usageString = String(describing: usageLog.usageString?.dropLast(2))
+                    usageLog.usageString?.append("10")
+                case 3:
+                    usageLog.usageString = String(describing: usageLog.usageString?.dropLast(3))
+                    usageLog.usageString?.append("100")
+                case 4:
+                    usageLog.usageString = String(describing: usageLog.usageString?.dropLast(4))
+                    usageLog.usageString?.append("1000")
+                case 5:
+                    usageLog.usageString = String(describing: usageLog.usageString?.dropLast(5))
+                    usageLog.usageString?.append("10000")
+                case 6:
+                    usageLog.usageString = String(describing: usageLog.usageString?.dropLast(6))
+                    usageLog.usageString?.append("100000")
+                default:
+                    usageLog.usageString = "1000000"
+                    print("none of the above")
+            }
+            
+            ///sanity check
+            if usageLog.usageString?.count != 7
+            {
+                print("My usage string is \(String(describing: usageLog.usageString)). Does this look right to you?")
+            }
+        }
+
     }
     
     //MARK: Miscellaneous
