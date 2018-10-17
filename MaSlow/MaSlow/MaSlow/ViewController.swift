@@ -110,14 +110,13 @@ class ViewController: UIViewController {
         addButtonOutterRightTier5()
         
         loadUsage()
-        print(usageLog!)
         /// load the correct flower picture
         addFlower()
 
         // Create Hidden Label
         makeLabel(quote: "Test Label")
         
-        usageTrackingSubroutine()
+        //usageTrackingSubroutine()
     }
     
     //MARK: Code for non-button UI elements
@@ -138,33 +137,33 @@ class ViewController: UIViewController {
     }
     
     func addFlower(){
-        guard let flowerFilenameString = usageLog.usageString
-            else{
-                tempFlowerFilenameDisplay.text = "No usage log data found"
-                return
-        }
-        tempFlowerFilenameDisplay.text = "flower" + flowerFilenameString + "jpg"
-        
-        //      {tempFlowerFilenameDisplay.text = flowerFilename}
-//        //// As a placeholder for selecting the correct image from the stack, I'm displaying the filename on a label
-//        if let usageLog.usageString? != nil
+//         guard let flowerFilenameString = usageLog.usageString
+//            else{
+//                tempFlowerFilenameDisplay.text = "No usage log data found"
+//                return
+//        }
+//        tempFlowerFilenameDisplay.text = "flower" + flowerFilenameString + "jpg"
+//
+//        //      {tempFlowerFilenameDisplay.text = flowerFilename}
+////        //// As a placeholder for selecting the correct image from the stack, I'm displaying the filename on a label
+////        if let usageLog.usageString? != nil
+////        {
+////            let flowerFilename = "flower" + usageLog.usageString! + "jpg"
+////            tempFlowerFilenameDisplay.text = flowerFilename
+////        }
+////        else{
+////            self.tempFlowerFilenameDisplay.text = "Nothing in the usage log"
+////        }
+////
+//        let flowerFilename = "flower" + flowerFilenameString
+//        if let image = UIImage(named: flowerFilename)
 //        {
-//            let flowerFilename = "flower" + usageLog.usageString! + "jpg"
-//            tempFlowerFilenameDisplay.text = flowerFilename
+//            flowerImageView.image = image
 //        }
 //        else{
-//            self.tempFlowerFilenameDisplay.text = "Nothing in the usage log"
+//                flowerImageView.image = UIImage(named: "flowertest1")
+//                return
 //        }
-//
-        let flowerFilename = "flower" + flowerFilenameString
-        if let image = UIImage(named: flowerFilename)
-        {
-            flowerImageView.image = image
-        }
-        else{
-                flowerImageView.image = UIImage(named: "flowertest1")
-                return
-        }
     }
     
     
@@ -513,8 +512,6 @@ class ViewController: UIViewController {
             {
                 self.usageLog = usageLogArray[0]
             }
-            
-             print( usageLogArray[0].usageString)
         }
         catch
         {
@@ -629,10 +626,12 @@ class ViewController: UIViewController {
         // little safety subroutine in case I don't have data
         if usageLogArray == nil || usageLogArray.count == 1
         {
-            /// initialise new
+            return
         }
-        usageLog = usageLogArray[0]
-        
+        else
+        {
+            usageLog = usageLogArray[0]
+      
         /// I need to read the last element.
         let datestampOnData = usageLog.lastUsed?.description.split(separator: " ")[0]
         let datestampNow = Date.init(timeIntervalSinceNow: 0).description.split(separator: " ")[0]
@@ -674,6 +673,7 @@ class ViewController: UIViewController {
                 print("My usage string is \(String(describing: usageLog.usageString)). Does this look right to you?")
             }
         }
+    }
 
     }
     
