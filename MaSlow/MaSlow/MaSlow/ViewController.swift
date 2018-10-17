@@ -66,8 +66,8 @@ class ViewController: UIViewController {
    //     intialiseEmptyDayLog()
         
         /// This is a little debugging subroutine to let me simulate different values in teh data store. 
-       // let dummyDate = Date.init(timeIntervalSinceNow: 0)
-       // dummySimulateUsage(dummyData: ( dummyDate , "0110011"))
+        let dummyDate = Date.init(timeIntervalSinceNow: 0)
+        dummySimulateUsage(dummyData: ( dummyDate , "1001000"))
         
         
         /// my tutorial told me this would look better...
@@ -116,7 +116,7 @@ class ViewController: UIViewController {
         // Create Hidden Label
         makeLabel(quote: "Test Label")
         
-        //usageTrackingSubroutine()
+         usageTrackingSubroutine()
     }
     
     //MARK: Code for non-button UI elements
@@ -137,33 +137,37 @@ class ViewController: UIViewController {
     }
     
     func addFlower(){
-//         guard let flowerFilenameString = usageLog.usageString
-//            else{
-//                tempFlowerFilenameDisplay.text = "No usage log data found"
-//                return
-//        }
-//        tempFlowerFilenameDisplay.text = "flower" + flowerFilenameString + "jpg"
-//
-//        //      {tempFlowerFilenameDisplay.text = flowerFilename}
-////        //// As a placeholder for selecting the correct image from the stack, I'm displaying the filename on a label
-////        if let usageLog.usageString? != nil
-////        {
-////            let flowerFilename = "flower" + usageLog.usageString! + "jpg"
-////            tempFlowerFilenameDisplay.text = flowerFilename
-////        }
-////        else{
-////            self.tempFlowerFilenameDisplay.text = "Nothing in the usage log"
-////        }
-////
-//        let flowerFilename = "flower" + flowerFilenameString
-//        if let image = UIImage(named: flowerFilename)
+        
+         guard let flowerFilenameString = usageLog.usageString
+            else{
+                tempFlowerFilenameDisplay.text = "No usage log data found"
+                return
+        }
+        tempFlowerFilenameDisplay.text = "flower" + flowerFilenameString + "jpg"
+
+        //      {tempFlowerFilenameDisplay.text = flowerFilename}
+//        //// As a placeholder for selecting the correct image from the stack, I'm displaying the filename on a label
+//        if let usageLog.usageString? != nil
 //        {
-//            flowerImageView.image = image
+//            let flowerFilename = "flower" + usageLog.usageString! + "jpg"
+//            tempFlowerFilenameDisplay.text = flowerFilename
 //        }
 //        else{
-//                flowerImageView.image = UIImage(named: "flowertest1")
-//                return
+//            self.tempFlowerFilenameDisplay.text = "Nothing in the usage log"
 //        }
+//
+        let flowerFilename = "flower" + flowerFilenameString
+        if let image = UIImage(named: flowerFilename)
+        {
+            flowerImageView.image = image
+        }
+        else{
+                //flowerImageView.image = UIImage(named: "flowertest1")
+                return
+        }
+        
+        
+        //flowerImageView.image = UIImage(named: "flower1000000")
     }
     
     
