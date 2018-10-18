@@ -18,6 +18,9 @@ class ViewController: UIViewController {
                                                 in: .userDomainMask).first?.appendingPathComponent("Items.plist")
     var usage: [NSManagedObject] = []
     
+    ///debug object
+    var dummyDate = Date.init(timeIntervalSinceNow: 0)
+    
     //MARK: My local data variables for my code
     var todayLog: Today!
     var usageLog: UsageLog!
@@ -28,6 +31,34 @@ class ViewController: UIViewController {
     @IBOutlet weak var backgroundImage: UIImageView!
     @IBOutlet weak var tempFlowerFilenameDisplay: UILabel!
     @IBOutlet weak var flowerImageView: UIImageView!
+    
+      // time travel buttons - remove from release
+    
+    @IBAction func plus1(_ sender: Any) {
+        usageLog.lastUsed = dummyDate.addingTimeInterval(-96400)
+        saveItems()
+        usageTrackingSubroutine()
+        addFlower()
+    }
+    
+    @IBAction func plus2(_ sender: Any) {
+        usageLog.lastUsed = dummyDate.addingTimeInterval(-196400)
+        saveItems()
+        usageTrackingSubroutine()
+        addFlower()
+    }
+    
+    @IBAction func plus3(_ sender: Any) {
+        usageLog.lastUsed = dummyDate.addingTimeInterval(-296400)
+        saveItems()
+        usageTrackingSubroutine()
+        addFlower()
+    }
+    
+    
+    
+    
+    
     
     // declare buttons
     var buttonTier1: UIButton!
@@ -69,11 +100,6 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         //     intialiseEmptyDayLog()
         
-        /// This is a little debugging subroutine to let me simulate different values in teh data store. 
-        let dummyDate = Date.init(timeIntervalSinceNow: 0)
-        dummySimulateUsage(dummyData: ( dummyDate , "1001000"))
-        
-        
         /// my tutorial told me this would look better...
         scrollView.contentInsetAdjustmentBehavior = .never
         
@@ -113,8 +139,11 @@ class ViewController: UIViewController {
         addButtonInnerRightTier5()
         addButtonOutterRightTier5()
         
-        loadUsage()
+      
+        
+        ///loadUsage()
         /// load the correct flower picture
+        usageTrackingSubroutine()
         addFlower()
         
         // Create Hidden Label
@@ -538,10 +567,17 @@ class ViewController: UIViewController {
         let request : NSFetchRequest<UsageLog> = UsageLog.fetchRequest()
         do{
             try
-                usageLogArray = context.fetch(request)
+            usageLogArray = context.fetch(request)
             if usageLogArray.count > 0
             {
                 self.usageLog = usageLogArray[0]
+            }
+            else
+            {
+                usageLog = UsageLog.init(entity: NSEntityDescription.entity(forEntityName: "UsageLog", in:context)!, insertInto: context)
+                self.usageLog.lastUsed = Date.init(timeIntervalSinceNow: 0)
+                self.usageLog.usageString = "1010010"
+                saveItems()
             }
         }
         catch
@@ -552,22 +588,13 @@ class ViewController: UIViewController {
     
     /// This is a dummy subroutine for loading in possible scenarios of usage
     func dummySimulateUsage(dummyData: (Date, String)){
-        var  usageLog = UsageLog.init(entity: NSEntityDescription.entity(forEntityName: "UsageLog", in:context)!, insertInto: context)
+        //var  usageLog = UsageLog.init(entity: NSEntityDescription.entity(forEntityName: "UsageLog", in:context)!, insertInto: context)
+        //loadUsage()
         usageLog.lastUsed = dummyData.0
         usageLog.usageString = dummyData.1
         
-        
         saveItems()
-        //        do{
-        //            try context.save() }
-        //        catch{
-        //            let nserror = error as NSError
-        //            fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
-        //
-        //        }
-        //loadUsage()
-        
-        
+       
     }
     
     
@@ -654,14 +681,20 @@ class ViewController: UIViewController {
         /// I need to load the data item for the flower.
         loadUsage()
         
+        /// This is a little debugging subroutine to let me simulate different values in teh data store.
+        // i should also have a check to dump the data if its a future timestamp...
+       // let dummyDate = Date.init(timeIntervalSinceNow: -196400.0)
+        ///dummySimulateUsage(dummyData: ( dummyDate , "1001000"))
+        //usageLog.lastUsed = Date.init(timeIntervalSinceNow:  -196400.0)
+        
         // little safety subroutine in case I don't have data
-        if usageLogArray == nil || usageLogArray.count == 1
+        if usageLogArray == nil || usageLogArray.count == 0
         {
             return
         }
         else
         {
-            usageLog = usageLogArray[0]
+            //usageLog = usageLogArray[0]
             
             /// I need to read the last element.
             let datestampOnData = usageLog.lastUsed?.description.split(separator: " ")[0]
@@ -676,32 +709,44 @@ class ViewController: UIViewController {
                 switch daysSinceLastUse!
                 {
                 case 1:
-                    usageLog.usageString = String(describing: usageLog.usageString?.dropLast(1))
-                    usageLog.usageString?.append("1")
+                    var tempStr = usageLog.usageString!
+                    tempStr = String(tempStr.dropLast(1))
+                    tempStr = "1" + tempStr
+                    usageLog.usageString = tempStr
                 case 2:
-                    usageLog.usageString = String(describing: usageLog.usageString?.dropLast(2))
-                    usageLog.usageString?.append("10")
+                    var tempStr = usageLog.usageString!
+                    tempStr = String(tempStr.dropLast(2))
+                    tempStr = "10" + tempStr
+                    usageLog.usageString = tempStr
                 case 3:
-                    usageLog.usageString = String(describing: usageLog.usageString?.dropLast(3))
-                    usageLog.usageString?.append("100")
+                    var tempStr = usageLog.usageString!
+                    tempStr = String(tempStr.dropLast(3))
+                    tempStr = "100" + tempStr
+                    usageLog.usageString = tempStr
                 case 4:
-                    usageLog.usageString = String(describing: usageLog.usageString?.dropLast(4))
-                    usageLog.usageString?.append("1000")
+                    var tempStr = usageLog.usageString!
+                    tempStr = String(tempStr.dropLast(4))
+                    tempStr = "1000" + tempStr
+                    usageLog.usageString = tempStr
                 case 5:
-                    usageLog.usageString = String(describing: usageLog.usageString?.dropLast(5))
-                    usageLog.usageString?.append("10000")
+                    var tempStr = usageLog.usageString!
+                    tempStr = String(tempStr.dropLast(5))
+                    tempStr = "10000" + tempStr
+                    usageLog.usageString = tempStr
                 case 6:
-                    usageLog.usageString = String(describing: usageLog.usageString?.dropLast(6))
-                    usageLog.usageString?.append("100000")
+                    var tempStr = usageLog.usageString!
+                    tempStr = String(tempStr.dropLast(6))
+                    tempStr = "100000" + tempStr
+                    usageLog.usageString = tempStr
                 default:
                     usageLog.usageString = "1000000"
                     print("none of the above")
                 }
                 
                 ///sanity check
-                if usageLog.usageString?.count != 7
+                if (usageLog.usageString?.count)! != 7
                 {
-                    print("My usage string is \(String(describing: usageLog.usageString)). Does this look right to you?")
+                    print("My usage string is \(String(describing: usageLog.usageString!)). Does this look right to you?")
                 }
             }
         }

@@ -10,6 +10,8 @@ import XCTest
 @testable import MaSlow
 
 class MaSlowTests: XCTestCase {
+    /// var XX = YY
+    
     
     override func setUp() {
         super.setUp()
@@ -24,6 +26,8 @@ class MaSlowTests: XCTestCase {
     func testExample() {
         // This is an example of a functional test case.
         // Use XCTAssert and related functions to verify your tests produce the correct results.
+        // let result = YYY
+        //XCAssert(result = what I want, )
     }
     
     func testPerformanceExample() {
