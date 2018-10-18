@@ -112,8 +112,10 @@ class ViewController: UIViewController {
     
     // assigning sentences for each tier
     var quotesTier0:[String]=["Don’t worry about a thing. ‘Cause every little things is gonna be alright.” – Bob Marley","Good enough is good enough.", "'Believe you can and you’re half way there' T.Roosevelt"]
+    //physiological hald full
+    var quotesTier5b:[String]=["Well done - you survived the day!"]
     //physiological
-    var quotesTier5:[String]=["You are doing great!","Well done - you survived the day!"]
+    var quotesTier5:[String]=["You are doing great!"]
     //safety
     var quotesTier4:[String]=["“Future you” salutes your hard work today","You deserve to take a moment for you!"]
     //love
@@ -142,9 +144,7 @@ class ViewController: UIViewController {
         // I was a bit worried about app being slow laoding. moved these calls lower down to avoid impression of 'hang'
         loadItems()
         makeSureCurrentDayLog()
-        print(datafilepath)
-        
-        
+        //print(datafilepath)
         
         // Add Buttons to view
         addButtonTier1()
