@@ -111,7 +111,7 @@ class ViewController: UIViewController {
     var Tier5: Bool = false
     
     // assigning sentences for each tier
-    var quotesTier0:[String]=["Don’t worry about a thing. ‘Cause every little things is gonna be alright.” – Bob Marley","Good enough is good enough."]
+    var quotesTier0:[String]=["Don’t worry about a thing. ‘Cause every little things is gonna be alright.” – Bob Marley","Good enough is good enough.", "'Believe you can and you’re half way there' T.Roosevelt"]
     //physiological
     var quotesTier5:[String]=["You are doing great!","Well done - you survived the day!"]
     //safety
@@ -606,7 +606,7 @@ class ViewController: UIViewController {
     func dummySimulateUsage(dummyData: (Date, String)){
         usageLog.lastUsed = dummyData.0
         usageLog.usageString = dummyData.1
-        saveItems() 
+        saveItems()
     }
     
     
