@@ -29,7 +29,6 @@ class ViewController: UIViewController {
     /// outlets to scroll view and the dirt/sky background
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var backgroundImage: UIImageView!
-    @IBOutlet weak var tempFlowerFilenameDisplay: UILabel!
     @IBOutlet weak var flowerImageView: UIImageView!
     
       // time travel buttons - remove from release
@@ -49,16 +48,40 @@ class ViewController: UIViewController {
     }
     
     @IBAction func plus3(_ sender: Any) {
-        usageLog.lastUsed = dummyDate.addingTimeInterval(-296400)
+        usageLog.lastUsed = dummyDate.addingTimeInterval(-286400)
+        saveItems()
+        usageTrackingSubroutine()
+        addFlower()
+    }
+    
+    @IBAction func plus4(_ sender: Any) {
+        usageLog.lastUsed = dummyDate.addingTimeInterval(-376400)
         saveItems()
         usageTrackingSubroutine()
         addFlower()
     }
     
     
+    @IBAction func plus5(_ sender: Any) {
+        usageLog.lastUsed = dummyDate.addingTimeInterval(-466400)
+        saveItems()
+        usageTrackingSubroutine()
+        addFlower()
+    }
     
+    @IBAction func plus6(_ sender: Any) {
+        usageLog.lastUsed = dummyDate.addingTimeInterval(-556400)
+        saveItems()
+        usageTrackingSubroutine()
+        addFlower()
+    }
     
-    
+    @IBAction func plus7(_ sender: Any) {
+        usageLog.lastUsed = dummyDate.addingTimeInterval(-646400)
+        saveItems()
+        usageTrackingSubroutine()
+        addFlower()
+    }
     
     // declare buttons
     var buttonTier1: UIButton!
@@ -88,14 +111,18 @@ class ViewController: UIViewController {
     var Tier5: Bool = false
     
     // assigning sentences for each tier
-    var quotesTier1:[String]=["1tier1","2tier1","3tier1","4tier1"]
-    var quotesTier2:[String]=["1tier2","2tier2","3tier2","4tier2"]
-    var quotesTier3:[String]=["1tier3","2tier3","3tier3","4tier3"]
-    var quotesTier4:[String]=["1tier4","2tier4","3tier4","4tier4"]
-    var quotesTier5:[String]=["1tier5","2tier5","3tier5","4tier5"]
-    
-    
-    
+    var quotesTier0:[String]=["Don’t worry about a thing. ‘Cause every little things is gonna be alright.” – Bob Marley","Good enough is good enough."]
+    //physiological
+    var quotesTier5:[String]=["You are doing great!","Well done - you survived the day!"]
+    //safety
+    var quotesTier4:[String]=["“Future you” salutes your hard work today","You deserve to take a moment for you!"]
+    //love
+    var quotesTier3:[String]=["You created memories today."]
+    //esteem
+    var quotesTier2:[String]=["You’re doing amazing things."]
+    //self-actualisation
+    var quotesTier1:[String]=["You should be really proud of yourself today!"]
+
     override func viewDidLoad() {
         super.viewDidLoad()
         //     intialiseEmptyDayLog()
@@ -147,7 +174,7 @@ class ViewController: UIViewController {
         addFlower()
         
         // Create Hidden Label
-        makeLabel(quote: "You are amazing!")
+        makeLabel(quote: "Take care of yourself and your family")
         
         //         usageTrackingSubroutine()
     }
@@ -181,34 +208,18 @@ class ViewController: UIViewController {
         
         guard let flowerFilenameString = usageLog.usageString
             else{
-                tempFlowerFilenameDisplay.text = "No usage log data found"
                 return
-        }
-        tempFlowerFilenameDisplay.text = "flower" + flowerFilenameString + "jpg"
-        
-        //      {tempFlowerFilenameDisplay.text = flowerFilename}
-        //        //// As a placeholder for selecting the correct image from the stack, I'm displaying the filename on a label
-        //        if let usageLog.usageString? != nil
-        //        {
-        //            let flowerFilename = "flower" + usageLog.usageString! + "jpg"
-        //            tempFlowerFilenameDisplay.text = flowerFilename
-        //        }
-        //        else{
-        //            self.tempFlowerFilenameDisplay.text = "Nothing in the usage log"
-        //        }
-        //
+            }
+
         let flowerFilename = "flower" + flowerFilenameString
         if let image = UIImage(named: flowerFilename)
         {
             flowerImageView.image = image
         }
         else{
-            //flowerImageView.image = UIImage(named: "flowertest1")
+            flowerImageView.image = UIImage(named: "flowertest1")
             return
         }
-        
-        
-        //flowerImageView.image = UIImage(named: "flower1000000")
     }
     
     
@@ -252,8 +263,6 @@ class ViewController: UIViewController {
         
         buttonTier1.setTitle( task.taskTier1, for: UIControlState.normal)
         
-        
-        /// I've moved appearance code into separate func so we can bulk update the appearance
         buttonAppearance(button: buttonTier1, state: todayLog.buttonTier1)
         buttonTier1.addTarget(self, action: #selector(buttonInAction), for: UIControlEvents.touchUpInside)
         
@@ -530,18 +539,25 @@ class ViewController: UIViewController {
         
         // refresh the appearance of the button
         buttonAppearance(button: sender, state: state)
+        
+        /// logic for which encouraging message to give the user
         if todayLog.buttonTier1 == true {
             makeLabel(quote: quotesTier1[Int(arc4random_uniform(UInt32(quotesTier1.count)))])
-        } else if todayLog.buttonLeftTier2 && todayLog.buttonMidTier2 && todayLog.buttonRightTier2 == true && todayLog.buttonSecondLeftTier2 && todayLog.buttonSecondMidTier2 && todayLog.buttonSecondRightTier2 {
+        } else if todayLog.buttonLeftTier2 && todayLog.buttonMidTier2 && todayLog.buttonRightTier2  {
             makeLabel(quote: quotesTier2[Int(arc4random_uniform(UInt32(quotesTier2.count)))])
-        } else if todayLog.buttonLeftTier3 && todayLog.buttonRightTier3 && todayLog.buttonSecondLeftTier3 && todayLog.buttonSecondRightTier3 {
+        }else if todayLog.buttonSecondLeftTier2 && todayLog.buttonSecondMidTier2 && todayLog.buttonSecondRightTier2 {
             makeLabel(quote: quotesTier3[Int(arc4random_uniform(UInt32(quotesTier3.count)))])
-        } else if todayLog.buttonLeftTier4 && todayLog.buttonMidTier4 && todayLog.buttonRightTier4 {
+        } else if todayLog.buttonLeftTier3 && todayLog.buttonRightTier3 && todayLog.buttonSecondLeftTier3 && todayLog.buttonSecondRightTier3 {
             makeLabel(quote: quotesTier4[Int(arc4random_uniform(UInt32(quotesTier4.count)))])
+        } else if todayLog.buttonLeftTier4 && todayLog.buttonMidTier4 && todayLog.buttonRightTier4 {
+            makeLabel(quote: quotesTier5[Int(arc4random_uniform(UInt32(quotesTier5.count)))])
         } else if todayLog.buttonOutterLeftTier5 && todayLog.buttonInnerLeftTier5 && todayLog.buttonInnerRightTier5 && todayLog.buttonOutterRightTier5 {
             makeLabel(quote: quotesTier5[Int(arc4random_uniform(UInt32(quotesTier5.count)))])
-        } else {
-            makeLabel(quote: "You are amazing!")
+        }
+        
+        else {
+            //makeLabel(quote: "You are amazing!")
+            makeLabel(quote: quotesTier0[Int(arc4random_uniform(UInt32(quotesTier0.count)))])
         }
         self.view.setNeedsDisplay()
         // save the changed data to the database
@@ -588,13 +604,9 @@ class ViewController: UIViewController {
     
     /// This is a dummy subroutine for loading in possible scenarios of usage
     func dummySimulateUsage(dummyData: (Date, String)){
-        //var  usageLog = UsageLog.init(entity: NSEntityDescription.entity(forEntityName: "UsageLog", in:context)!, insertInto: context)
-        //loadUsage()
         usageLog.lastUsed = dummyData.0
         usageLog.usageString = dummyData.1
-        
-        saveItems()
-       
+        saveItems() 
     }
     
     
@@ -694,13 +706,11 @@ class ViewController: UIViewController {
         }
         else
         {
-            //usageLog = usageLogArray[0]
-            
-            /// I need to read the last element.
+            /// I need to pick off only the year/month/day element.
             let datestampOnData = usageLog.lastUsed?.description.split(separator: " ")[0]
             let datestampNow = Date.init(timeIntervalSinceNow: 0).description.split(separator: " ")[0]
             
-            ///If the last element is not the same as today, i should append todays timestamp to the data
+            ///If it is not the same as today, i should replace data timestamp with todays timestamp
             if String(datestampNow) != String(describing: datestampOnData)
             {
                 /// check that this is counting calendar dates, not 24hr periods >>> unit tests
