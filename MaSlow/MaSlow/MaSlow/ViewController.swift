@@ -117,8 +117,6 @@ class ViewController: UIViewController {
     
     var quotesTier0:[String]=["Don’t worry about a thing. ‘Cause every little things is gonna be alright.” – Bob Marley","Good enough is good enough.", "'Believe you can and you’re half-way there' - T. Roosevelt", "Don't let fear or insecurity stop you from trying new things. Believe in yourself.’ - S. London"]
     
-    
-    
     //physiological half full
     
     var quotesTier5b:[String]=["Well done - you survived the day!", "‘Giving grace to yourself is never more important than when you become a mother.’ -Whitney Meade", "‘Your most valuable parenting skill is learning to manage yourself first.’ - L. Markham"]
@@ -136,7 +134,7 @@ class ViewController: UIViewController {
     var quotesTier3:[String]=["You created memories today.", "‘With the new day comes new strength and new thoughts.’ - E. Roosevelt", "‘No one can make you feel inferior without your consent.’ - E. Roosevelt", "‘Love yourself. It is important to stay positive because beauty comes from the inside out.’ - J.Proske"]
     
     //esteem
-    
+
     var quotesTier2:[String]=["You’re doing amazing things.", "‘The future belongs to those who believe in the beauty of their dreams.’ - E. Roosevelt", "‘You must do the things you think you cannot do.’ - E. Roosevelt", "‘Women are like teabags. You don't know how strong they are until you put them in hot water.’ - E. Roosevelt", "‘To be fully alive, fully human and completely awake is to be continually thrown out of the nest.’ P. Chodron"]
     
     //self-actualisation
@@ -276,6 +274,10 @@ class ViewController: UIViewController {
         button.titleLabel?.adjustsFontSizeToFitWidth = true
         button.titleLabel?.minimumScaleFactor = 0.2
         button.titleLabel?.numberOfLines = 0
+        button.contentEdgeInsets.left = 3
+        button.contentEdgeInsets.right = 3
+        button.contentEdgeInsets.top = 3
+        button.contentEdgeInsets.bottom = 3
         
         if state == false
         {
