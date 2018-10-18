@@ -131,6 +131,9 @@ class ViewController: UIViewController {
         label.textAlignment = .center
         label.text = quote
         label.font = UIFont(name: "Verdana", size: 17)
+        label.adjustsFontSizeToFitWidth = true
+        label.minimumScaleFactor = 0.2
+        label.numberOfLines = 0
         label.backgroundColor = UIColor(patternImage: UIImage(named: "Cloud")!)
         label.lineBreakMode = NSLineBreakMode.byWordWrapping
         label.clipsToBounds = true
@@ -143,6 +146,9 @@ class ViewController: UIViewController {
     }
     
     func addFlower(){
+        
+        flowerImageView.center = CGPoint(x: view.bounds.width / 2.1, y: view.bounds.height / 1.35)
+        
         
         guard let flowerFilenameString = usageLog.usageString
             else{
@@ -187,16 +193,19 @@ class ViewController: UIViewController {
         // let image = UIImage(named: "Stonev2") as UIImage?
         // button.setBackgroundImage(image, for: .normal)
         button.clipsToBounds = true
-        button.titleLabel?.font = UIFont(name: "Verdana", size: 15)
+        button.titleLabel?.font = UIFont(name: "Verdana", size: view.bounds.width * 0.040625)
         button.titleLabel?.lineBreakMode = NSLineBreakMode.byWordWrapping
         button.titleLabel?.textAlignment = NSTextAlignment.center
+        button.titleLabel?.adjustsFontSizeToFitWidth = true
+        button.titleLabel?.minimumScaleFactor = 0.2
+        button.titleLabel?.numberOfLines = 0
         
         if state == false
         {
             button.setTitleColor(UIColor(red: 250/255, green: 192/255, blue: 114/255, alpha: 1.0), for: .normal)
             button.backgroundColor = UIColor.black                //UIColor(red: 138/255, green: 69/255, blue: 40/255, alpha: 1.0)
             //button.layer.borderWidth = 5
-            button.layer.cornerRadius = 30
+            button.layer.cornerRadius = 22.5
         }
         else
         {
