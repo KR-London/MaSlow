@@ -25,9 +25,9 @@ class Tasks{
     
     //safety
     var taskLeftTier3 = "15 Minute Tidy"
-    var taskRightTier3 = "1 Healthy Habit"
+    var taskRightTier3 = "Healthy Habit"
     var taskSecondLeftTier3 = "On Daily Budget"
-    var taskSecondRightTier3 = "1 Admin/ Homework"
+    var taskSecondRightTier3 = "Admin/ Homework"
     
     /// physioloigical
     var taskLeftTier4 = "Core Chores"
@@ -35,7 +35,7 @@ class Tasks{
     var taskRightTier4 = "Dressed"
     var taskOutterLeftTier5 = "Your Bedtime"
     var taskInnerLeftTier5 = "Teeth Brushed"
-    var taskInnerRightTier5 = "Food"
+    var taskInnerRightTier5 = "All Fed"
     var taskOutterRightTier5 = "Child Bedtime"
     
 }

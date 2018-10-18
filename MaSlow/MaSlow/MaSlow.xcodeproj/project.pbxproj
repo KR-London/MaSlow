@@ -10,6 +10,7 @@
 		440590AC2176517C007AA78F /* Tasks.swift in Sources */ = {isa = PBXBuildFile; fileRef = 440590AB2176517C007AA78F /* Tasks.swift */; };
 		441714B62174BF6C003E0D1D /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 441714B52174BF6C003E0D1D /* Launch Screen.storyboard */; };
 		4452BA582178573200C61740 /* flower in Resources */ = {isa = PBXBuildFile; fileRef = 4452BA572178573200C61740 /* flower */; };
+		44BE5F5E2178B377006EFA40 /* EdgeInsetLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44BE5F5D2178B377006EFA40 /* EdgeInsetLabel.swift */; };
 		44CBA92421745E1D00B9C808 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44CBA92321745E1D00B9C808 /* AppDelegate.swift */; };
 		44CBA92621745E1D00B9C808 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44CBA92521745E1D00B9C808 /* ViewController.swift */; };
 		44CBA92921745E1D00B9C808 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 44CBA92721745E1D00B9C808 /* Main.storyboard */; };
@@ -33,6 +34,7 @@
 		440590AB2176517C007AA78F /* Tasks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tasks.swift; sourceTree = "<group>"; };
 		441714B52174BF6C003E0D1D /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		4452BA572178573200C61740 /* flower */ = {isa = PBXFileReference; lastKnownFileType = folder; name = flower; path = ../../flower; sourceTree = "<group>"; };
+		44BE5F5D2178B377006EFA40 /* EdgeInsetLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EdgeInsetLabel.swift; sourceTree = "<group>"; };
 		44CBA92021745E1D00B9C808 /* MaSlow.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MaSlow.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		44CBA92321745E1D00B9C808 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		44CBA92521745E1D00B9C808 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -87,6 +89,7 @@
 			children = (
 				44CBA92321745E1D00B9C808 /* AppDelegate.swift */,
 				44CBA92521745E1D00B9C808 /* ViewController.swift */,
+				44BE5F5D2178B377006EFA40 /* EdgeInsetLabel.swift */,
 				440590AB2176517C007AA78F /* Tasks.swift */,
 				44CBA92721745E1D00B9C808 /* Main.storyboard */,
 				441714B52174BF6C003E0D1D /* Launch Screen.storyboard */,
@@ -217,6 +220,7 @@
 				44CBA92621745E1D00B9C808 /* ViewController.swift in Sources */,
 				44CBA92C21745E1D00B9C808 /* MaSlow.xcdatamodeld in Sources */,
 				44CBA92421745E1D00B9C808 /* AppDelegate.swift in Sources */,
+				44BE5F5E2178B377006EFA40 /* EdgeInsetLabel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -287,7 +291,7 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Ekaterina Roberts (2E5MDC86ME)";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -344,7 +348,7 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Ekaterina Roberts (2E5MDC86ME)";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;

@@ -110,20 +110,53 @@ class ViewController: UIViewController {
     var Tier4: Bool = false
     var Tier5: Bool = false
     
+    
     // assigning sentences for each tier
-    var quotesTier0:[String]=["Don’t worry about a thing. ‘Cause every little things is gonna be alright.” – Bob Marley","Good enough is good enough.", "'Believe you can and you’re half way there' T.Roosevelt"]
-    //physiological hald full
-    var quotesTier5b:[String]=["Well done - you survived the day!"]
+    
+    //no complete tiers but something picked
+    
+    var quotesTier0:[String]=["Don’t worry about a thing. ‘Cause every little things is gonna be alright.” – Bob Marley","Good enough is good enough.", "'Believe you can and you’re half-way there' - T. Roosevelt", "Don't let fear or insecurity stop you from trying new things. Believe in yourself.’ - S. London"]
+    
+    
+    
+    //physiological half full
+    
+    var quotesTier5b:[String]=["Well done - you survived the day!", "‘Giving grace to yourself is never more important than when you become a mother.’ -Whitney Meade", "‘Your most valuable parenting skill is learning to manage yourself first.’ - L. Markham"]
+    
     //physiological
-    var quotesTier5:[String]=["You are doing great!"]
+    
+    var quotesTier5:[String]=["You are doing great!", "‘It is better to light a candle than curse the darkness.’ - E. Roosevelt", "‘Behind every great child is a mom who’s pretty sure she’s screwing it all up.’ - Unknown"]
+    
     //safety
-    var quotesTier4:[String]=["“Future you” salutes your hard work today","You deserve to take a moment for you!"]
+    
+    var quotesTier4:[String]=["“Future you” salutes your hard work today","You deserve to take a moment for you!", "‘Do one thing every day that scares you.’ - E. Roosevelt","‘The most difficult times for many of us are the ones we give ourselves.’ - P. Chodron"]
+    
     //love
-    var quotesTier3:[String]=["You created memories today."]
+    
+    var quotesTier3:[String]=["You created memories today.", "‘With the new day comes new strength and new thoughts.’ - E. Roosevelt", "‘No one can make you feel inferior without your consent.’ - E. Roosevelt", "‘Love yourself. It is important to stay positive because beauty comes from the inside out.’ - J.Proske"]
+    
     //esteem
-    var quotesTier2:[String]=["You’re doing amazing things."]
+    
+    var quotesTier2:[String]=["You’re doing amazing things.", "‘The future belongs to those who believe in the beauty of their dreams.’ - E. Roosevelt", "‘You must do the things you think you cannot do.’ - E. Roosevelt", "‘Women are like teabags. You don't know how strong they are until you put them in hot water.’ - E. Roosevelt", "‘To be fully alive, fully human and completely awake is to be continually thrown out of the nest.’ P. Chodron"]
+    
     //self-actualisation
-    var quotesTier1:[String]=["You should be really proud of yourself today!"]
+    
+    var quotesTier1:[String]=["You should be really proud of yourself today!", "‘You are the sky. Everything else - it's just the weather.’  - P. Chodron", "‘Creativity is allowing yourself to make mistakes. Art is knowing which ones to keep.’ - S. Adams", "‘Life is the art of drawing without an eraser.’ - J.W. Gardner"]
+//
+//    // assigning sentences for each tier
+//    var quotesTier0:[String]=["Don’t worry about a thing. ‘Cause every little things is gonna be alright.” – Bob Marley","Good enough is good enough.", "'Believe you can and you’re half way there' T.Roosevelt"]
+//    //physiological hald full
+//    var quotesTier5b:[String]=["Well done - you survived the day!"]
+//    //physiological
+//    var quotesTier5:[String]=["You are doing great!"]
+//    //safety
+//    var quotesTier4:[String]=["“Future you” salutes your hard work today","You deserve to take a moment for you!"]
+//    //love
+//    var quotesTier3:[String]=["You created memories today."]
+//    //esteem
+//    var quotesTier2:[String]=["You’re doing amazing things."]
+//    //self-actualisation
+//    var quotesTier1:[String]=["You should be really proud of yourself today!"]
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -182,7 +215,7 @@ class ViewController: UIViewController {
     //MARK: Code for non-button UI elements
     // Label Creation
     func makeLabel(quote: String) {
-        let label = UILabel(frame: CGRect(x: 0, y: 0, width: view.bounds.width / 1.5, height: view.bounds.height / 4.5))
+        let label = EdgeInsetLabel(frame: CGRect(x: 0, y: 0, width: view.bounds.width / 1.5, height: view.bounds.height / 4.5))
         label.center = CGPoint(x: view.bounds.width / 2, y: view.bounds.height / 4.5)
         label.textAlignment = .center
         label.text = quote
@@ -198,6 +231,10 @@ class ViewController: UIViewController {
         label.layer.borderWidth = 2
         label.layer.borderColor = UIColor.white.cgColor
         label.isHidden = false
+        label.leftTextInset = 10
+        label.rightTextInset = 10
+        label.topTextInset = 10
+        label.bottomTextInset = 10
         self.view.addSubview(label)
     }
     
@@ -540,25 +577,58 @@ class ViewController: UIViewController {
         // refresh the appearance of the button
         buttonAppearance(button: sender, state: state)
         
-        /// logic for which encouraging message to give the user
-        if todayLog.buttonTier1 == true {
-            makeLabel(quote: quotesTier1[Int(arc4random_uniform(UInt32(quotesTier1.count)))])
-        } else if todayLog.buttonLeftTier2 && todayLog.buttonMidTier2 && todayLog.buttonRightTier2  {
-            makeLabel(quote: quotesTier2[Int(arc4random_uniform(UInt32(quotesTier2.count)))])
-        }else if todayLog.buttonSecondLeftTier2 && todayLog.buttonSecondMidTier2 && todayLog.buttonSecondRightTier2 {
-            makeLabel(quote: quotesTier3[Int(arc4random_uniform(UInt32(quotesTier3.count)))])
-        } else if todayLog.buttonLeftTier3 && todayLog.buttonRightTier3 && todayLog.buttonSecondLeftTier3 && todayLog.buttonSecondRightTier3 {
-            makeLabel(quote: quotesTier4[Int(arc4random_uniform(UInt32(quotesTier4.count)))])
-        } else if todayLog.buttonLeftTier4 && todayLog.buttonMidTier4 && todayLog.buttonRightTier4 {
-            makeLabel(quote: quotesTier5[Int(arc4random_uniform(UInt32(quotesTier5.count)))])
-        } else if todayLog.buttonOutterLeftTier5 && todayLog.buttonInnerLeftTier5 && todayLog.buttonInnerRightTier5 && todayLog.buttonOutterRightTier5 {
-            makeLabel(quote: quotesTier5[Int(arc4random_uniform(UInt32(quotesTier5.count)))])
+        let creativeFull = todayLog.buttonTier1
+        let selfActualisationFull = todayLog.buttonLeftTier2 && todayLog.buttonMidTier2 && todayLog.buttonRightTier2
+        let belongingFull = todayLog.buttonSecondLeftTier2 && todayLog.buttonSecondMidTier2 && todayLog.buttonSecondRightTier2
+        let safetyFull = todayLog.buttonLeftTier3 && todayLog.buttonRightTier3 && todayLog.buttonSecondLeftTier3 && todayLog.buttonSecondRightTier3
+        let physiologicalFull = todayLog.buttonLeftTier4 && todayLog.buttonMidTier4 && todayLog.buttonRightTier4 && todayLog.buttonOutterLeftTier5 && todayLog.buttonInnerLeftTier5 && todayLog.buttonInnerRightTier5 && todayLog.buttonOutterRightTier5
+        let physiologicalHalfFull = todayLog.buttonOutterLeftTier5 && todayLog.buttonInnerLeftTier5 && todayLog.buttonInnerRightTier5 && todayLog.buttonOutterRightTier5
+        
+        let fillState = [physiologicalHalfFull,physiologicalFull,safetyFull,belongingFull,selfActualisationFull,creativeFull]
+        
+        switch (physiologicalHalfFull,physiologicalFull,safetyFull,belongingFull,selfActualisationFull,creativeFull)
+        {
+           case (true,true,true,true,true,true):  makeLabel(quote: quotesTier1[Int(arc4random_uniform(UInt32(quotesTier1.count)))])
+            
+           case (true,true,true,true,true,false):  makeLabel(quote: quotesTier2[Int(arc4random_uniform(UInt32(quotesTier2.count)))])
+            
+           case (true,true,true,true,false, _):  makeLabel(quote: quotesTier3[Int(arc4random_uniform(UInt32(quotesTier3.count)))])
+            
+            case (true,true,true,false,_,_):  makeLabel(quote: quotesTier4[Int(arc4random_uniform(UInt32(quotesTier4.count)))])
+            
+            case (true,true,false,_,_,_):  makeLabel(quote: quotesTier5[Int(arc4random_uniform(UInt32(quotesTier5.count)))])
+            
+            case (true,false,_,_,_,_):  makeLabel(quote: quotesTier5b[Int(arc4random_uniform(UInt32(quotesTier5b.count)))])
+            
+            default:  makeLabel(quote: quotesTier0[Int(arc4random_uniform(UInt32(quotesTier0.count)))])
         }
         
-        else {
-            //makeLabel(quote: "You are amazing!")
-            makeLabel(quote: quotesTier0[Int(arc4random_uniform(UInt32(quotesTier0.count)))])
-        }
+        
+//        print("phys1 \(physiologicalHalfFull)")
+//        print("phys \(physiologicalFull)")
+//        print("safety \(safetyFull)")
+//        print("belonging \(belongingFull)")
+//        print("selfact \(selfActualisationFull)")
+//        print("creactive \(creativeFull)")
+        /// logic for which encouraging message to give the user
+//        if todayLog.buttonTier1 == true {
+//            makeLabel(quote: quotesTier1[Int(arc4random_uniform(UInt32(quotesTier1.count)))])
+//        } else if todayLog.buttonLeftTier2 && todayLog.buttonMidTier2 && todayLog.buttonRightTier2  {
+//            makeLabel(quote: quotesTier2[Int(arc4random_uniform(UInt32(quotesTier2.count)))])
+//        }else if todayLog.buttonSecondLeftTier2 && todayLog.buttonSecondMidTier2 && todayLog.buttonSecondRightTier2 {
+//            makeLabel(quote: quotesTier3[Int(arc4random_uniform(UInt32(quotesTier3.count)))])
+//        } else if todayLog.buttonLeftTier3 && todayLog.buttonRightTier3 && todayLog.buttonSecondLeftTier3 && todayLog.buttonSecondRightTier3 {
+//            makeLabel(quote: quotesTier4[Int(arc4random_uniform(UInt32(quotesTier4.count)))])
+//        } else if todayLog.buttonLeftTier4 && todayLog.buttonMidTier4 && todayLog.buttonRightTier4 {
+//            makeLabel(quote: quotesTier5[Int(arc4random_uniform(UInt32(quotesTier5.count)))])
+//        } else if todayLog.buttonOutterLeftTier5 && todayLog.buttonInnerLeftTier5 && todayLog.buttonInnerRightTier5 && todayLog.buttonOutterRightTier5 {
+//            makeLabel(quote: quotesTier5[Int(arc4random_uniform(UInt32(quotesTier5.count)))])
+//        }
+//
+//        else {
+//            //makeLabel(quote: "You are amazing!")
+//            makeLabel(quote: quotesTier0[Int(arc4random_uniform(UInt32(quotesTier0.count)))])
+//        }
         self.view.setNeedsDisplay()
         // save the changed data to the database
         saveItems()
